@@ -1,0 +1,40 @@
+import SectionTitle from "@/components/Atoms/titles/SectionTitle";
+import ProductCard from "@/components/Molecules/Cards/ProductCard";
+import { getLatestProducts } from "@/lib/api/Products";
+import { LangType } from "@/types/globals";
+import { getLocale } from "next-intl/server";
+import React from "react";
+
+const LatestProductsSection = async () => {
+  const lang = (await getLocale()) as LangType;
+  const isRtl = lang === "ar";
+  const data = await getLatestProducts(lang);
+  const Products = data?.data || [];
+
+  console.log("Products", Products);
+
+  return (
+    <div className="Container">
+      <div className="flex flex-col gap-4 pb-8 border-b">
+        <div className="flex justify-between items-center">
+          <SectionTitle
+            title={isRtl ? "وصل حديثا" : "New arrival"}
+            description={
+              isRtl
+                ? "اكتشف أحدث الإضافات التي اخترناها لك بعناية"
+                : "Discover the latest additions that we have carefully selected for you."
+            }
+            iconPath="/Icons/New.svg"
+          />
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+          {Products.map((item, index) => (
+            <ProductCard key={index} product={item} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default LatestProductsSection;

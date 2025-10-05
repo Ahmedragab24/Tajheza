@@ -1,0 +1,16 @@
+{
+  "Hero": {
+    "title": "Organize your party easily with Tajhezah",
+    "description": "Tajhezah is an all-in-one platform for organizing parties and events. We provide everything you need in one place — from booking decorations and flower arrangements to choosing gifts and additional services, with a simple and fast experience that ensures comfort and enjoyment. Since our success is built on partnership, we also enable suppliers and service providers to join our platform, showcase their services, reach new clients, and grow their business effortlessly.",
+    "button": "Create Event Now"
+  },
+  "ToggleLanguage": {
+    "ar": "Arabic",
+    "en": "English"
+  },
+  "Navigation": {
+    "home": "Home",
+    "services": "Services",
+    "occasions": "Occasions"
+  }
+}
