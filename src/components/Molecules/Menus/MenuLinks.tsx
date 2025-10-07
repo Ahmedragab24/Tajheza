@@ -19,9 +19,9 @@ const MenuLinks = ({ type }: Props) => {
   const isRtl = lang === "ar";
 
   const navigationLinks = [
-    { href: "#", label: t("home"), active: true },
+    { href: "/", label: t("home"), active: true },
     { href: "#", label: t("services") },
-    { href: "#", label: t("Occasions") },
+    { href: "/client/home/occasions", label: t("Occasions") },
   ];
 
   const isDesktop = type === "desktop";

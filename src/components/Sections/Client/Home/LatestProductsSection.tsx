@@ -1,9 +1,10 @@
 import SectionTitle from "@/components/Atoms/titles/SectionTitle";
 import ProductCard from "@/components/Molecules/Cards/ProductCard";
+import { Skeleton } from "@/components/ui/skeleton";
 import { getLatestProducts } from "@/lib/api/Products";
 import { LangType } from "@/types/globals";
 import { getLocale } from "next-intl/server";
-import React from "react";
+import React, { Suspense } from "react";
 
 const LatestProductsSection = async () => {
   const lang = (await getLocale()) as LangType;
@@ -27,9 +28,15 @@ const LatestProductsSection = async () => {
             iconPath="/Icons/New.svg"
           />
         </div>
+
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
           {Products.map((item, index) => (
-            <ProductCard key={index} product={item} />
+            <Suspense
+              key={index}
+              fallback={<Skeleton key={index} className="h-40 md:h-60" />}
+            >
+              <ProductCard product={item} />
+            </Suspense>
           ))}
         </div>
       </div>

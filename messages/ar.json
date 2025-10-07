@@ -12,5 +12,29 @@
     "home": "الرئيسية",
     "services": "الخدمات",
     "Occasions": "المناسبات"
+  },
+  "DeleteAccount": {
+    "title": "حذف الحساب",
+    "description": "يرجى تأكيد رقم الهاتف وكلمة المرور لحذف حسابك نهائيًا.",
+    "phoneLabel": "رقم الهاتف",
+    "passwordLabel": "كلمة المرور",
+    "passwordPlaceholder": "أدخل كلمة المرور",
+    "login": "تسجيل الدخول",
+    "deleteButton": "حذف الحساب",
+    "confirmTitle": "هل أنت متأكد أنك تريد حذف الحساب؟",
+    "confirmDescription": "لا يمكن التراجع عن هذه العملية، سيتم حذف الحساب وجميع البيانات المرتبطة به نهائيًا.",
+    "cancel": "إلغاء",
+    "confirm": "تأكيد",
+    "loading": "جارٍ الحذف...",
+    "successMessage": "تم حذف الحساب بنجاح.",
+    "errorMessage": "حدث خطأ أثناء حذف الحساب."
+  },
+  "TabsAccountCard": {
+    "accountInfo": "معلومات الحساب",
+    "orders": "طلباتي",
+    "myPoints": "نقاطي",
+    "myReservations": "حجوزاتي",
+    "transactions": "المعاملات",
+    "deleteAccount": "حذف الحساب"
   }
 }

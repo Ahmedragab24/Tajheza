@@ -1,18 +1,34 @@
+import { ProductFilteringType } from "@/app/[locale]/client/home/services/page";
 import { MainSearchProductType } from "@/types/Search";
-
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export async function getSearchProducts(
-  name?: string,
-  categoryId?: number,
-  date?: Date,
-  city?: string,
-  min_price?: number,
-  max_price?: number
-) {
+export async function getSearchProducts(Filter: ProductFilteringType) {
   try {
+    const params = new URLSearchParams();
+
+    const filterParams = {
+      category_id: Filter.categoryId,
+      date: Filter.date,
+      city: Filter.city,
+      min_price: Filter.min_price,
+      max_price: Filter.max_price,
+      name: Filter.name,
+    };
+
+    for (const key in filterParams) {
+      const value = filterParams[key as keyof typeof filterParams];
+
+      if (value !== null && value !== undefined && value !== "") {
+        if (value instanceof Date) {
+          params.append(key, value.toISOString());
+        } else {
+          params.append(key, String(value));
+        }
+      }
+    }
+
     const res = await fetch(
-      `${API_BASE_URL}/search-products?category_id=${categoryId}&date=${date}&city=${city}&min_price=${min_price}&max_price=${max_price}&name=${name}`,
+      `${API_BASE_URL}/search-products?${params.toString()}`,
       {
         cache: "force-cache",
       }

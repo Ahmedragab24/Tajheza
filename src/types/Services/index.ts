@@ -5,5 +5,6 @@ export interface ServiceType {
 }
 
 export interface ServicesResponseType {
+  status: boolean;
   data: ServiceType[];
 }

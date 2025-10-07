@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { setAuthTokenClient } from "@/lib/auth/auth-client";
 import { signInWithApple, signInWithGoogle } from "@/lib/firebaseConfig";
 import { useSocialRegisterMutation } from "@/store/services/Auth/Auth";
-import { SocialRegisterType } from "@/types/Auth/Auth";
 import { ErrorType } from "@/types/Errors";
 import { LangType } from "@/types/globals";
 import { Loader } from "lucide-react";
@@ -40,14 +39,11 @@ const ProvidersBtns = ({ className, setOpen }: Props) => {
     const { user } = userData;
 
     try {
-      const data: SocialRegisterType = {
-        name: user.displayName || "",
-        type: "user",
-        email: user.email || "",
-        login_type: type,
-        password: "social-register",
-        fcm: "adad",
-      };
+      const data = new FormData();
+      data.append("name", String(user?.displayName));
+      data.append("email", String(user?.email));
+      data.append("provider", type);
+      data.append("provider_id", user?.providerId);
 
       const result = await SocialRegister(data).unwrap();
       setAuthTokenClient(result?.token);

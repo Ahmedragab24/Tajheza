@@ -58,8 +58,8 @@ const LoginForm = ({ setType, setPhone }: Props) => {
 
       toast.error(
         lang === "en"
-          ? firstError || "An unexpected error occurred"
-          : firstError || "حدث خطأ غير متوقع"
+          ? firstError || err.data.message
+          : firstError || err.data.message
       );
     }
   }

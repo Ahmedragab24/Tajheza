@@ -47,7 +47,7 @@ interface ResetPasswordResponse {
 export const AuthApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_API,
+    baseUrl: process.env.NEXT_PUBLIC_API_URL,
   }),
   endpoints: (builder) => ({
     Register: builder.mutation<RegisterResponse, FormData>({
@@ -98,7 +98,10 @@ export const AuthApi = createApi({
       }),
     }),
 
-    ResetPassword: builder.mutation<ResetPasswordResponse, FormData>({
+    ResetPassword: builder.mutation<
+      ResetPasswordResponse,
+      { body: FormData; token: string | null }
+    >({
       query: (body) => ({
         url: `/reset-password`,
         method: "POST",
@@ -118,7 +121,7 @@ export const AuthApi = createApi({
 
     DeleteAccount: builder.mutation<
       LoginResponse,
-      { token: string; body: FormData }
+      { token: string | null; body: FormData }
     >({
       query: ({ token, body }) => ({
         url: `/delete-account`,

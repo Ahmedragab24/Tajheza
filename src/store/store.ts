@@ -11,10 +11,26 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { AuthApi } from "./services/Auth/Auth";
+import { SearchApi } from "./services/Search";
+import { ServicesApi } from "./services/Services";
+import { CitiesApi } from "./services/Cities";
+import { FavoritesApi } from "./services/Favorites";
+import { CompaniesApi } from "./services/Companies";
+import { ProfileApi } from "./services/Auth/Profile";
+import { OrdersApi } from "./services/Orders";
+import { OccasionsApi } from "./services/Occasions";
 
 const rootReducer = combineReducers({
   //   userData: userDataReducer,
   [AuthApi.reducerPath]: AuthApi.reducer,
+  [ProfileApi.reducerPath]: ProfileApi.reducer,
+  [SearchApi.reducerPath]: SearchApi.reducer,
+  [ServicesApi.reducerPath]: ServicesApi.reducer,
+  [CitiesApi.reducerPath]: CitiesApi.reducer,
+  [FavoritesApi.reducerPath]: FavoritesApi.reducer,
+  [CompaniesApi.reducerPath]: CompaniesApi.reducer,
+  [OrdersApi.reducerPath]: OrdersApi.reducer,
+  [OccasionsApi.reducerPath]: OccasionsApi.reducer,
 });
 
 const persistConfig = {
@@ -32,7 +48,17 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(AuthApi.middleware),
+    }).concat(
+      AuthApi.middleware,
+      ProfileApi.middleware,
+      SearchApi.middleware,
+      ServicesApi.middleware,
+      CitiesApi.middleware,
+      FavoritesApi.middleware,
+      OrdersApi.middleware,
+      OccasionsApi.middleware,
+      CompaniesApi.middleware
+    ),
 });
 
 export const persistor = persistStore(store);

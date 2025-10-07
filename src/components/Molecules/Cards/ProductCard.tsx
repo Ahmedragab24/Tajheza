@@ -27,7 +27,11 @@ const ProductCard = ({ product }: Props) => {
 
           <div className="w-full px-2 absolute top-2 flex justify-between">
             <RateBadge number={product.rating} />
-            <FavoriteBtn productId={product.id} />
+            <FavoriteBtn
+              productId={product.id}
+              type="card"
+              variant={"secondary"}
+            />
           </div>
         </div>
 

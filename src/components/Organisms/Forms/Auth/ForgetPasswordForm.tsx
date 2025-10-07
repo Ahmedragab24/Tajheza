@@ -35,9 +35,10 @@ const ForgetPasswordForm = ({ setPhone, setType }: Props) => {
 
   async function onSubmit(values: z.infer<typeof ForgetPasswordFormSchema>) {
     try {
-      await ForgetPassword({
-        phone: values.phone.iso_code + values.phone.number,
-      }).unwrap();
+      const data = new FormData();
+      data.append("phone", values.phone.iso_code + values.phone.number);
+
+      await ForgetPassword(data).unwrap();
 
       toast.success(
         lang === "ar" ? "تم إرسال رمز التحقق" : "Verification code sent"

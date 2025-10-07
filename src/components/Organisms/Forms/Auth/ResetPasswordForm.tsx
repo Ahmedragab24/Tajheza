@@ -14,7 +14,6 @@ import { ResetPasswordFormSchema } from "@/schemas/ResetPasswordFormSchema";
 import CustomFormItem from "@/components/Molecules/FormItems/CustomFromItem";
 import { getAuthTokenClient } from "@/lib/auth/auth-client";
 import { LangType } from "@/types/globals";
-import { ResetPasswordType } from "@/types/Auth/Auth";
 import SubmitBtn from "@/components/Atoms/buttons/SubmitBtn";
 
 interface Props {
@@ -37,11 +36,10 @@ const ResetPasswordForm = ({ phone, setType }: Props) => {
   async function onSubmit(values: z.infer<typeof ResetPasswordFormSchema>) {
     console.log(values);
 
-    const data: ResetPasswordType = {
-      phone: phone,
-      new_password: values.new_password,
-      new_password_confirmation: values.new_password_confirmation,
-    };
+    const data = new FormData();
+    data.append("phone", phone);
+    data.append("new_password", values.new_password);
+    data.append("new_password_confirmation", values.new_password_confirmation);
 
     try {
       await ResetPassword({ body: data, token }).unwrap();

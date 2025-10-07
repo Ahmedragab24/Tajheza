@@ -12,5 +12,29 @@
     "home": "Home",
     "services": "Services",
     "occasions": "Occasions"
+  },
+  "DeleteAccount": {
+    "title": "Delete Account",
+    "description": "Please confirm your phone number and password to delete your account permanently.",
+    "phoneLabel": "Phone number",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "login": "Login",
+    "deleteButton": "Delete Account",
+    "confirmTitle": "Are you sure you want to delete your account?",
+    "confirmDescription": "This action cannot be undone. Your account and all related data will be permanently deleted.",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "loading": "Deleting...",
+    "successMessage": "Your account has been deleted successfully.",
+    "errorMessage": "Something went wrong while deleting your account."
+  },
+  "TabsAccountCard": {
+    "accountInfo": "Account Information",
+    "orders": "My Orders",
+    "myPoints": "My Points",
+    "myReservations": "My Reservations",
+    "transactions": "Transactions",
+    "deleteAccount": "Delete Account"
   }
 }

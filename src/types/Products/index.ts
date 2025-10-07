@@ -3,10 +3,23 @@ export interface ProductType {
   title: string;
   price: string;
   main_image: string;
-  is_favorite: false;
+  is_favorite: boolean;
   rating: number;
   discount: string;
 }
+
+export interface CompanyInfoType {
+  id: number;
+  company_id: number;
+  name: string;
+  logo: string;
+  city: string;
+  phone: string;
+  rating_average: number;
+  longitude: string;
+  latitude: string;
+}
+
 export interface ProductDetailsType {
   id: number;
   title: string;
@@ -22,17 +35,7 @@ export interface ProductDetailsType {
     id: number;
     name: string;
   };
-  company: {
-    id: number;
-    company_id: number;
-    name: string;
-    logo: string;
-    city: string;
-    phone: string;
-    rating_average: number;
-    longitude: string;
-    latitude: string;
-  };
+  company: CompanyInfoType;
   images: { id: number; url: string }[];
   options: [];
   addons: [];
