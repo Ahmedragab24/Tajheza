@@ -83,14 +83,10 @@ const ProfileForm = ({ userData }: Props) => {
   if (!userData) return <ProfileFormSkeleton />;
 
   return (
-    <div dir={locale === "ar" ? "rtl" : "ltr"} className="max-w-4xl mx-auto">
-      <div className="mb-10">
-        <h1 className="text-2xl font-semibold text-primary-foreground">
-          {t("title")}
-        </h1>
-        <p className="text-gray-400 mt-2">{t("subtitle")}</p>
-      </div>
-
+    <div
+      dir={locale === "ar" ? "rtl" : "ltr"}
+      className="space-y-4 max-w-4xl mx-auto bg-muted p-6 rounded-2xl shadow-md"
+    >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField

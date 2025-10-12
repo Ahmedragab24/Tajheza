@@ -94,7 +94,7 @@ const FavoriteBtn = ({ productId, variant = "ghost", type }: Props) => {
     >
       <Heart
         className={`transition-all ${
-          isFavorite ? "text-red-500 fill-red-500" : "text-primary"
+          isFavorite ? "text-primary fill-primary" : "text-primary"
         } ${type === "page" ? "!w-4 !h-4 md:!w-6 md:!h-6" : "!w-4 !h-4"}`}
       />
     </Button>

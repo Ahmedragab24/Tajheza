@@ -2,9 +2,13 @@
 
 import { Card } from "@/components/ui/card";
 import {
-  BanknoteArrowUp,
-  Package,
-  Route,
+  BellRing,
+  Gem,
+  Headset,
+  HeartPlus,
+  Lock,
+  MapPinHouse,
+  MessagesSquare,
   TicketCheck,
   Trash2,
   User,
@@ -12,10 +16,10 @@ import {
 import React from "react";
 import { useTranslations } from "next-intl";
 import { ProfileType } from "@/types/Auth/Profile";
-import { Tabs } from "@/app/[locale]/client/home/profile/page";
+import { TabsValueType } from "@/app/[locale]/client/profile/page";
 
 interface TabsType {
-  value: string;
+  value: TabsValueType;
   nameKey: string;
   icon: React.ElementType;
 }
@@ -27,24 +31,44 @@ const tabs: TabsType[] = [
     icon: User,
   },
   {
-    value: "orders",
-    nameKey: "orders",
-    icon: Package,
+    value: "change_password",
+    nameKey: "change_password",
+    icon: Lock,
   },
   {
-    value: "My-points",
-    nameKey: "myPoints",
-    icon: Route,
+    value: "notifications",
+    nameKey: "notifications",
+    icon: BellRing,
   },
   {
-    value: "My-Reservations",
-    nameKey: "myReservations",
+    value: "conversations",
+    nameKey: "conversations",
+    icon: MessagesSquare,
+  },
+  {
+    value: "address",
+    nameKey: "address",
+    icon: MapPinHouse,
+  },
+  {
+    value: "favorites",
+    nameKey: "favorites",
+    icon: HeartPlus,
+  },
+  {
+    value: "reservations",
+    nameKey: "reservations",
     icon: TicketCheck,
   },
   {
-    value: "transactions",
-    nameKey: "transactions",
-    icon: BanknoteArrowUp,
+    value: "membership",
+    nameKey: "membership",
+    icon: Gem,
+  },
+  {
+    value: "customer_service",
+    nameKey: "customer_service",
+    icon: Headset,
   },
   {
     value: "deleteAccount",
@@ -56,7 +80,7 @@ const tabs: TabsType[] = [
 interface Props {
   userData: ProfileType | undefined;
   activeTab: string;
-  setActiveTab: (tab: Tabs) => void;
+  setActiveTab: (tab: TabsValueType) => void;
 }
 
 const TabsAccountCard = ({ activeTab, setActiveTab, userData }: Props) => {
@@ -83,7 +107,7 @@ const TabsAccountCard = ({ activeTab, setActiveTab, userData }: Props) => {
                   "bg-gray-200 text-primary font-medium border-e-4 border-secondary"
                 }
                 ${value === "deleteAccount" ? "text-red-800" : ""}`}
-              onClick={() => setActiveTab(value as Tabs)}
+              onClick={() => setActiveTab(value as TabsValueType)}
             >
               {icon && React.createElement(icon, { className: "mx-2 h-4 w-4" })}
               <span>{t(nameKey)}</span>

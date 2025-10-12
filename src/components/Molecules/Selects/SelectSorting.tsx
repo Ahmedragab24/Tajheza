@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label";
 import { LangType } from "@/types/globals";
 import { SortByType } from "@/types/Search";
 import { Dispatch } from "react";
-import { ProductFilteringType } from "@/app/[locale]/client/home/services/page";
+import { ProductFilteringType } from "@/app/[locale]/client/services/page";
 
 interface Props {
   value: SortByType | undefined;

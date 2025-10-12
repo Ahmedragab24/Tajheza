@@ -1,24 +1,14 @@
-import LoaderSpan from "@/components/Atoms/Loaders/LoaderSpan";
-import { getUserInfo } from "@/lib/api/Auth/Profile";
+import ClientHomepage from "./client/page";
+import ProviderHomepage from "./provider/page";
 import { getAuthTokenServer } from "@/lib/auth/auth-server";
-import { redirect } from "next/navigation";
+import { getUserInfo } from "@/lib/api/Auth/Profile";
 
 export default async function HomePage() {
   const isLogin = await getAuthTokenServer();
   const data = await getUserInfo();
   const userData = data?.data?.user;
 
-  if (!isLogin) {
-    redirect("/client/home");
-  }
+  if (isLogin && userData?.type === "provider") return <ProviderHomepage />;
 
-  //  "client" | "provider"
-  if (userData?.type === "user") {
-    redirect("/client/home");
-  } else if (userData?.type === "provider") {
-    redirect("/provider/home");
-  }
-
-  // fallback
-  return <LoaderSpan />;
+  return <ClientHomepage />;
 }

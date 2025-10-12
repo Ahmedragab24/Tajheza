@@ -2,7 +2,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dispatch } from "react";
 import { LangType } from "@/types/globals";
 import { useLocale } from "next-intl";
-import { ProductFilteringType } from "@/app/[locale]/client/home/services/page";
+import { ProductFilteringType } from "@/app/[locale]/client/services/page";
 import { useGetServicesQuery } from "@/store/services/Services";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";

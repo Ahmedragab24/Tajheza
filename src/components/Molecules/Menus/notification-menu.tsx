@@ -1,174 +1,144 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { BellIcon } from "lucide-react"
-
-import { Button } from "@/components/ui/button"
+import { BellRing } from "lucide-react";
+import { useState } from "react";
+import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
+import { Button } from "../../ui/button";
+import { useGetAllNotificationsQuery } from "@/store/services/Notifications";
+import { NotificationType } from "@/types/Notifications";
+import { getAuthTokenClient } from "@/lib/auth/auth-client";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  TooltipProvider,
+} from "@/components/ui/tooltip";
+import NotificationCard from "../Cards/NotificationCard";
+import { useLocale } from "next-intl";
+import RegisterDialog from "@/components/Organisms/Dialogs/RegisterDialog";
+import { LangType } from "@/types/globals";
+import { Skeleton } from "@/components/ui/skeleton";
+import Link from "next/link";
 
-const initialNotifications = [
-  {
-    id: 1,
-    user: "Chris Tompson",
-    action: "requested review on",
-    target: "PR #42: Feature implementation",
-    timestamp: "15 minutes ago",
-    unread: true,
-  },
-  {
-    id: 2,
-    user: "Emma Davis",
-    action: "shared",
-    target: "New component library",
-    timestamp: "45 minutes ago",
-    unread: true,
-  },
-  {
-    id: 3,
-    user: "James Wilson",
-    action: "assigned you to",
-    target: "API integration task",
-    timestamp: "4 hours ago",
-    unread: false,
-  },
-  {
-    id: 4,
-    user: "Alex Morgan",
-    action: "replied to your comment in",
-    target: "Authentication flow",
-    timestamp: "12 hours ago",
-    unread: false,
-  },
-  {
-    id: 5,
-    user: "Sarah Chen",
-    action: "commented on",
-    target: "Dashboard redesign",
-    timestamp: "2 days ago",
-    unread: false,
-  },
-  {
-    id: 6,
-    user: "Miky Derya",
-    action: "mentioned you in",
-    target: "Origin UI open graph image",
-    timestamp: "2 weeks ago",
-    unread: false,
-  },
-]
+const NotificationsPopover = () => {
+  const lang = useLocale() as LangType;
+  const [open, changeOpen] = useState(false);
 
-function Dot({ className }: { className?: string }) {
-  return (
-    <svg
-      width="6"
-      height="6"
-      fill="currentColor"
-      viewBox="0 0 6 6"
-      xmlns="http://www.w3.org/2000/svg"
-      className={className}
-      aria-hidden="true"
-    >
-      <circle cx="3" cy="3" r="3" />
-    </svg>
-  )
-}
+  const { data, isLoading } = useGetAllNotificationsQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+    pollingInterval: 4000,
+  });
 
-export default function NotificationMenu() {
-  const [notifications, setNotifications] = useState(initialNotifications)
-  const unreadCount = notifications.filter((n) => n.unread).length
+  const AllNotifications: NotificationType[] = data?.notifications || [];
+  const unreadCount = data?.countUnreadNotifications ?? 0;
 
-  const handleMarkAllAsRead = () => {
-    setNotifications(
-      notifications.map((notification) => ({
-        ...notification,
-        unread: false,
-      }))
-    )
-  }
-
-  const handleNotificationClick = (id: number) => {
-    setNotifications(
-      notifications.map((notification) =>
-        notification.id === id
-          ? { ...notification, unread: false }
-          : notification
-      )
-    )
-  }
+  const token = getAuthTokenClient();
 
   return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <Button
-          size="icon"
-          variant="ghost"
-          className="text-muted-foreground relative size-8 rounded-full shadow-none"
-          aria-label="Open notifications"
-        >
-          <BellIcon size={16} aria-hidden="true" />
-          {unreadCount > 0 && (
-            <div
-              aria-hidden="true"
-              className="bg-primary absolute top-0.5 right-0.5 size-1 rounded-full"
-            />
-          )}
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-80 p-1">
-        <div className="flex items-baseline justify-between gap-4 px-3 py-2">
-          <div className="text-sm font-semibold">Notifications</div>
-          {unreadCount > 0 && (
-            <button
-              className="text-xs font-medium hover:underline"
-              onClick={handleMarkAllAsRead}
-            >
-              Mark all as read
-            </button>
-          )}
-        </div>
-        <div
-          role="separator"
-          aria-orientation="horizontal"
-          className="bg-border -mx-1 my-1 h-px"
-        ></div>
-        {notifications.map((notification) => (
-          <div
-            key={notification.id}
-            className="hover:bg-accent rounded-md px-3 py-2 text-sm transition-colors"
-          >
-            <div className="relative flex items-start pe-3">
-              <div className="flex-1 space-y-1">
-                <button
-                  className="text-foreground/80 text-left after:absolute after:inset-0"
-                  onClick={() => handleNotificationClick(notification.id)}
+    <TooltipProvider delayDuration={0}>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          {token ? (
+            <Popover open={open} onOpenChange={changeOpen}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  className="relative group rounded-full size-9 p-0"
+                  aria-label={lang === "ar" ? "الإشعارات" : "Notifications"}
                 >
-                  <span className="text-foreground font-medium hover:underline">
-                    {notification.user}
-                  </span>{" "}
-                  {notification.action}{" "}
-                  <span className="text-foreground font-medium hover:underline">
-                    {notification.target}
-                  </span>
-                  .
-                </button>
-                <div className="text-muted-foreground text-xs">
-                  {notification.timestamp}
+                  <BellRing className="transition-colors duration-300 group-hover:text-primary" />
+                  {unreadCount > 0 && (
+                    <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                  )}
+                </Button>
+              </PopoverTrigger>
+
+              <PopoverContent
+                align="end"
+                dir={lang === "ar" ? "rtl" : "ltr"}
+                className="w-[320px] h-[420px] p-4 shadow-xl border border-gray-200 bg-background rounded-xl flex flex-col"
+              >
+                {/* Header */}
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="font-semibold text-sm">
+                    {lang === "ar" ? "الإشعارات" : "Notifications"}
+                  </h3>
+                  {unreadCount > 0 && (
+                    <span className="text-xs text-gray-500">
+                      {unreadCount} {lang === "ar" ? "غير مقروء" : "unread"}
+                    </span>
+                  )}
                 </div>
-              </div>
-              {notification.unread && (
-                <div className="absolute end-0 self-center">
-                  <span className="sr-only">Unread</span>
-                  <Dot />
+
+                <div className="border-t mb-2"></div>
+
+                {/* Scrollable Area */}
+                <div className="flex-1 overflow-y-auto pr-1 space-y-3 scrollbar-thin scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-400">
+                  {isLoading ? (
+                    <>
+                      <Skeleton className="h-[70px] rounded-lg" />
+                      <Skeleton className="h-[70px] rounded-lg" />
+                      <Skeleton className="h-[70px] rounded-lg" />
+                    </>
+                  ) : AllNotifications.length === 0 ? (
+                    <div className="text-center text-sm text-gray-500 py-4">
+                      {lang === "ar"
+                        ? "لا توجد إشعارات حالياً"
+                        : "No notifications yet"}
+                    </div>
+                  ) : (
+                    AllNotifications.slice(0, 3).map(
+                      (notification: NotificationType) => (
+                        <NotificationCard
+                          key={notification.id}
+                          notification={notification}
+                          changeOpen={changeOpen}
+                          lang={lang}
+                        />
+                      )
+                    )
+                  )}
                 </div>
-              )}
-            </div>
-          </div>
-        ))}
-      </PopoverContent>
-    </Popover>
-  )
-}
+
+                {/* Footer */}
+                {AllNotifications.length > 0 && (
+                  <div className="pt-3 border-t mt-3">
+                    <Link
+                      href="/client/profile#notifications"
+                      onClick={() => changeOpen(false)}
+                    >
+                      <Button
+                        variant="ghost"
+                        className="w-full text-sm text-primary hover:bg-primary/10"
+                      >
+                        {lang === "ar" ? "عرض الكل" : "View All"}
+                      </Button>
+                    </Link>
+                  </div>
+                )}
+              </PopoverContent>
+            </Popover>
+          ) : (
+            <RegisterDialog>
+              <Button
+                variant="outline"
+                className="group rounded-full size-9 p-0"
+                aria-label={lang === "ar" ? "الإشعارات" : "Notifications"}
+              >
+                <BellRing className="transition-colors duration-300 group-hover:text-primary" />
+              </Button>
+            </RegisterDialog>
+          )}
+        </TooltipTrigger>
+
+        <TooltipContent>
+          <p className="text-xs">
+            {lang === "ar" ? "الإشعارات" : "Notifications"}
+          </p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  );
+};
+
+export default NotificationsPopover;

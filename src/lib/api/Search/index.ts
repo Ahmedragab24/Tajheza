@@ -1,4 +1,4 @@
-import { ProductFilteringType } from "@/app/[locale]/client/home/services/page";
+import { ProductFilteringType } from "@/app/[locale]/client/services/page";
 import { MainSearchProductType } from "@/types/Search";
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 

@@ -19,6 +19,11 @@ import { CompaniesApi } from "./services/Companies";
 import { ProfileApi } from "./services/Auth/Profile";
 import { OrdersApi } from "./services/Orders";
 import { OccasionsApi } from "./services/Occasions";
+import { AddressesApi } from "./services/Address";
+import { AppInfoApi } from "./services/AppInfo";
+import { MembershipsApi } from "./services/MembershipPackage";
+import { NotificationsApi } from "./services/Notifications";
+import { ChatApi } from "./services/Chat";
 
 const rootReducer = combineReducers({
   //   userData: userDataReducer,
@@ -31,6 +36,11 @@ const rootReducer = combineReducers({
   [CompaniesApi.reducerPath]: CompaniesApi.reducer,
   [OrdersApi.reducerPath]: OrdersApi.reducer,
   [OccasionsApi.reducerPath]: OccasionsApi.reducer,
+  [AddressesApi.reducerPath]: AddressesApi.reducer,
+  [AppInfoApi.reducerPath]: AppInfoApi.reducer,
+  [MembershipsApi.reducerPath]: MembershipsApi.reducer,
+  [NotificationsApi.reducerPath]: NotificationsApi.reducer,
+  [ChatApi.reducerPath]: ChatApi.reducer,
 });
 
 const persistConfig = {
@@ -57,7 +67,12 @@ export const store = configureStore({
       FavoritesApi.middleware,
       OrdersApi.middleware,
       OccasionsApi.middleware,
-      CompaniesApi.middleware
+      AddressesApi.middleware,
+      AppInfoApi.middleware,
+      MembershipsApi.middleware,
+      NotificationsApi.middleware,
+      CompaniesApi.middleware,
+      ChatApi.middleware
     ),
 });
 

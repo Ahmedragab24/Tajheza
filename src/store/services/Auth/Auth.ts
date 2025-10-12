@@ -1,3 +1,4 @@
+import { getCsrfToken, refreshCsrfToken } from "@/lib/csrf";
 import { UserInfoType } from "@/types/Auth/Auth";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
@@ -48,6 +49,15 @@ export const AuthApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_API_URL,
+    prepareHeaders: async (headers) => {
+      await refreshCsrfToken();
+      const csrfToken = getCsrfToken();
+      if (csrfToken) {
+        headers.set("X-XSRF-TOKEN", csrfToken);
+      }
+      headers.set("X-Requested-With", "XMLHttpRequest");
+      return headers;
+    },
   }),
   endpoints: (builder) => ({
     Register: builder.mutation<RegisterResponse, FormData>({

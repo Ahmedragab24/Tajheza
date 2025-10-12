@@ -30,11 +30,29 @@
     "errorMessage": "حدث خطأ أثناء حذف الحساب."
   },
   "TabsAccountCard": {
-    "accountInfo": "معلومات الحساب",
-    "orders": "طلباتي",
-    "myPoints": "نقاطي",
-    "myReservations": "حجوزاتي",
-    "transactions": "المعاملات",
+    "accountInfo": "المعلومات الشخصية",
+    "change_password": "تغيير كلمة المرور",
+    "notifications": "الإشعارات",
+    "conversations": "المحادثات",
+    "address": "العناوين",
+    "favorites": "المفضلة",
+    "reservations": "الحجوزات",
+    "membership": "العضوية",
+    "customer_service": "خدمة العملاء",
     "deleteAccount": "حذف الحساب"
+  },
+  "profile": {
+    "fullName": "الاسم بالكامل",
+    "enterFullName": "ادخل اسم بالكامل",
+    "email": "البريد الالكتروني",
+    "enterEmail": "ادخل البريد الالكتروني",
+    "phoneNumber": "رقم الجوال",
+    "fullAddress": "العنوان بالكامل",
+    "enterDetailedAddress": "ادخل عنوانك بالتفصيل",
+    "updateProfile": "تعديل البروفايل",
+    "updateSuccess": "نجح",
+    "profileUpdatedSuccessfully": "تم تحديث ملفك الشخصي بنجاح",
+    "updateError": "خطأ",
+    "somethingWentWrong": "حدث خطأ ما. يرجى المحاولة مرة أخرى."
   }
 }

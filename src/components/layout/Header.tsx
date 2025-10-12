@@ -1,3 +1,5 @@
+"use client";
+
 import Logo from "@/components/Atoms/images/logo";
 import NotificationMenu from "@/components/Molecules/Menus/notification-menu";
 import UserMenu from "@/components/Molecules/Menus/user-menu";
@@ -11,10 +13,10 @@ import SearchInput from "../Atoms/inputs/SearchInput";
 import ToggleLanguage from "../Molecules/Toggles/ToggleLanguage";
 import MenuLinks from "../Molecules/Menus/MenuLinks";
 import RegisterDialog from "../Organisms/Dialogs/RegisterDialog";
-import { getAuthTokenServer } from "@/lib/auth/auth-server";
+import { checkAuthStatus } from "@/lib/auth/auth-client";
 
-export default async function Header() {
-  const isLogin = await getAuthTokenServer();
+export default function Header() {
+  const isLogin = checkAuthStatus();
 
   return (
     <header className="bg-white shadow-lg Container py-2 sticky top-0 z-50">

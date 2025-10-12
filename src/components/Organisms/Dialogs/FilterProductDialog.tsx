@@ -1,6 +1,6 @@
 "use client";
 
-import { ProductFilteringType } from "@/app/[locale]/client/home/services/page";
+import { ProductFilteringType } from "@/app/[locale]/client/services/page";
 import { TagInput } from "@/components/Atoms/inputs/TagInput";
 import PriceRange from "@/components/Molecules/Progress/PriceRange";
 import SelectCity from "@/components/Molecules/Selects/SelectCity.tsx";

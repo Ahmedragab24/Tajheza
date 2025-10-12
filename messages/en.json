@@ -31,10 +31,28 @@
   },
   "TabsAccountCard": {
     "accountInfo": "Account Information",
-    "orders": "My Orders",
-    "myPoints": "My Points",
-    "myReservations": "My Reservations",
-    "transactions": "Transactions",
+    "change_password": "Change Password",
+    "notifications": "Notifications",
+    "conversations": "Conversations",
+    "address": "Address",
+    "favorites": "Favorites",
+    "reservations": "Reservations",
+    "membership": "Membership",
+    "customer_service": "Customer Service",
     "deleteAccount": "Delete Account"
+  },
+  "profile": {
+    "fullName": "الاسم بالكامل",
+    "enterFullName": "ادخل اسم بالكامل",
+    "email": "البريد الالكتروني",
+    "enterEmail": "ادخل البريد الالكتروني",
+    "phoneNumber": "رقم الجوال",
+    "fullAddress": "العنوان بالكامل",
+    "enterDetailedAddress": "ادخل عنوانك بالتفصيل",
+    "updateProfile": "تعديل البروفايل",
+    "updateSuccess": "نجح",
+    "profileUpdatedSuccessfully": "تم تحديث ملفك الشخصي بنجاح",
+    "updateError": "خطأ",
+    "somethingWentWrong": "حدث خطأ ما. يرجى المحاولة مرة أخرى."
   }
 }

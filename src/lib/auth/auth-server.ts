@@ -1,7 +1,6 @@
 import { cookies } from "next/headers";
 import { NAME_TOKEN_KEY } from "./auth-client";
 
-
 // ===== Helper: Decode JWT Payload =====
 function base64UrlDecode(str: string): string {
   return decodeURIComponent(
@@ -32,8 +31,9 @@ export async function setAuthTokenServer(token: string): Promise<void> {
     name: NAME_TOKEN_KEY,
     value: token,
     httpOnly: true,
-    secure: true,
+    secure: process.env.NODE_ENV === "production",
     path: "/",
+    sameSite: "lax",
     maxAge: 60 * 60 * 24 * 4, // 4 days
   });
 }

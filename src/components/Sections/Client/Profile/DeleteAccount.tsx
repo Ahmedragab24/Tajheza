@@ -74,9 +74,8 @@ const DeleteAccount = () => {
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-col items-center text-center justify-center rounded-lg border border-destructive/20 bg-destructive/5 py-20 px-4">
-        <h3 className="text-xl font-semibold text-destructive">{t("title")}</h3>
-        <p className="text-md text-gray-600 mt-1">{t("description")}</p>
+      <div className="flex flex-col items-center text-center justify-center rounded-lg">
+        <p className="text-md text-gray-600 mb-1">{t("description")}</p>
 
         <Form {...form}>
           <div className="w-full md:w-1/2 bg-muted px-2 py-4 md:p-6 rounded-xl shadow-md">

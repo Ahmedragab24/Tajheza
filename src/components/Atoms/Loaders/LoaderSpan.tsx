@@ -22,12 +22,14 @@ const LoaderSpan = ({ className, title }: IProps) => {
   return (
     <div className={`flex items-center gap-2 ${className}`}>
       {title ? (
-        <p>{title}</p>
+        <p className="text-sm md:text-lg">{title}</p>
       ) : (
-        <p>{language === "en" ? "...Loading" : "جاري التحميل..."}</p>
+        <p className="text-sm md:text-lg">
+          {language === "en" ? "...Loading" : "جاري التحميل..."}
+        </p>
       )}
 
-      <Loader className="w-4 h-4 animate-spin text-primary" />
+      <Loader className={`w-4 h-4 md:w-8 md:h-8 animate-spin text-primary`} />
     </div>
   );
 };

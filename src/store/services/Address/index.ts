@@ -1,28 +1,15 @@
 import { getAuthTokenClient } from "@/lib/auth/auth-client";
+import {
+  AddressesResponseType,
+  StoreAddressResponseType,
+  StoreAddressType,
+} from "@/types/Address";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-// import { AddressType } from "@/types/Addresses";
-
-interface AddressesResponse {
-  data: {
-    // userAddresses: AddressType[];
-    userAddresses: string;
-  };
-  message: string;
-  status_code: number;
-}
-
-interface AddAddressesResponse {
-  data: {
-    userAddress: string;
-  };
-  message: string;
-  status_code: number;
-}
 
 export const AddressesApi = createApi({
   reducerPath: "AddressesApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_API,
+    baseUrl: process.env.NEXT_PUBLIC_API_URL,
     prepareHeaders: (headers) => {
       const token = getAuthTokenClient();
       if (token) {
@@ -34,36 +21,44 @@ export const AddressesApi = createApi({
 
   tagTypes: ["Addresses"],
   endpoints: (builder) => ({
-    getAddresses: builder.query<AddressesResponse, void>({
-      query: () => `user-addresses`,
+    getAddresses: builder.query<AddressesResponseType, void>({
+      query: () => `/user/addresses`,
       providesTags: ["Addresses"],
     }),
 
-    addAddress: builder.mutation<AddAddressesResponse, string>({
+    addAddress: builder.mutation<StoreAddressResponseType, StoreAddressType>({
       query: (body) => ({
-        url: `/user-addresses/store`,
+        url: `/user/addresses`,
         method: "POST",
         body,
       }),
       invalidatesTags: ["Addresses"],
     }),
 
-    updateAddress: builder.mutation<AddAddressesResponse, string>({
-      query: (body) => ({
-        url: `/user-addresses/update`,
+    updateAddress: builder.mutation<
+      StoreAddressResponseType,
+      { AddressId: number; body: StoreAddressType }
+    >({
+      query: ({ AddressId, body }) => ({
+        url: `/user/addresses/${AddressId}`,
         method: "PUT",
         body,
       }),
       invalidatesTags: ["Addresses"],
     }),
 
-    deleteAddress: builder.mutation<
-      AddAddressesResponse,
-      { addressId: number }
-    >({
-      query: ({ addressId }) => ({
-        url: `/user-addresses/destroy/${addressId}`,
+    deleteAddress: builder.mutation<StoreAddressResponseType, number>({
+      query: (addressId) => ({
+        url: `/user/addresses/${addressId}`,
         method: "DELETE",
+      }),
+      invalidatesTags: ["Addresses"],
+    }),
+
+    DefaultAddress: builder.mutation<StoreAddressResponseType, number>({
+      query: (addressId) => ({
+        url: `/user/addresses/${addressId}/set-default`,
+        method: "POST",
       }),
       invalidatesTags: ["Addresses"],
     }),
@@ -74,5 +69,6 @@ export const {
   useGetAddressesQuery,
   useAddAddressMutation,
   useUpdateAddressMutation,
+  useDefaultAddressMutation,
   useDeleteAddressMutation,
 } = AddressesApi;

@@ -2,7 +2,7 @@
 
 import { Slider } from "../../ui/slider";
 import { Input } from "../../ui/input";
-import { ProductFilteringType } from "@/app/[locale]/client/home/services/page";
+import { ProductFilteringType } from "@/app/[locale]/client/services/page";
 import { Dispatch } from "react";
 import { useLocale } from "next-intl";
 

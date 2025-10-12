@@ -1,4 +1,4 @@
-import { ProductFilteringType } from "@/app/[locale]/client/home/services/page";
+import { ProductFilteringType } from "@/app/[locale]/client/services/page";
 import { LangType } from "@/types/globals";
 import { MainSearchProductType, SortByType } from "@/types/Search";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
