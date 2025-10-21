@@ -1,14 +1,17 @@
-import ClientHomepage from "./client/page";
-import ProviderHomepage from "./provider/page";
-import { getAuthTokenServer } from "@/lib/auth/auth-server";
-import { getUserInfo } from "@/lib/api/Auth/Profile";
+"use client";
 
-export default async function HomePage() {
-  const isLogin = await getAuthTokenServer();
-  const data = await getUserInfo();
+import { useGetUserInfoQuery } from "@/store/services/Auth/Profile";
+import { getAuthTokenClient } from "@/lib/auth/auth-client";
+import { redirect } from "next/navigation";
+
+export default function HomePage() {
+  const isLogin = getAuthTokenClient();
+  const { data } = useGetUserInfoQuery();
   const userData = data?.data?.user;
 
-  if (isLogin && userData?.type === "provider") return <ProviderHomepage />;
+  console.log("isLogin", isLogin);
+  console.log("userData", userData);
 
-  return <ClientHomepage />;
+  if (isLogin && userData?.type === "provider") redirect("/provider/home");
+  else redirect("/client");
 }

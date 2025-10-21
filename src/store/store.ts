@@ -24,11 +24,20 @@ import { AppInfoApi } from "./services/AppInfo";
 import { MembershipsApi } from "./services/MembershipPackage";
 import { NotificationsApi } from "./services/Notifications";
 import { ChatApi } from "./services/Chat";
+import { ProductsApi } from "./services/Products";
+import { CategoriesApi } from "./services/Categories";
+import { AttributesApi } from "./services/Attributes";
+import { ProviderProductsApi } from "./services/Provider/products";
+import { ProviderPackagesApi } from "./services/Provider/Packages";
+import { ProviderOrdersApi } from "./services/Provider/ProviderOrders";
+import { ProviderCompanyApi } from "./services/Provider/Company";
 
 const rootReducer = combineReducers({
   //   userData: userDataReducer,
   [AuthApi.reducerPath]: AuthApi.reducer,
   [ProfileApi.reducerPath]: ProfileApi.reducer,
+  [ProductsApi.reducerPath]: ProductsApi.reducer,
+  [CategoriesApi.reducerPath]: CategoriesApi.reducer,
   [SearchApi.reducerPath]: SearchApi.reducer,
   [ServicesApi.reducerPath]: ServicesApi.reducer,
   [CitiesApi.reducerPath]: CitiesApi.reducer,
@@ -40,7 +49,12 @@ const rootReducer = combineReducers({
   [AppInfoApi.reducerPath]: AppInfoApi.reducer,
   [MembershipsApi.reducerPath]: MembershipsApi.reducer,
   [NotificationsApi.reducerPath]: NotificationsApi.reducer,
+  [AttributesApi.reducerPath]: AttributesApi.reducer,
+  [ProviderProductsApi.reducerPath]: ProviderProductsApi.reducer,
+  [ProviderPackagesApi.reducerPath]: ProviderPackagesApi.reducer,
   [ChatApi.reducerPath]: ChatApi.reducer,
+  [ProviderOrdersApi.reducerPath]: ProviderOrdersApi.reducer,
+  [ProviderCompanyApi.reducerPath]: ProviderCompanyApi.reducer,
 });
 
 const persistConfig = {
@@ -61,6 +75,8 @@ export const store = configureStore({
     }).concat(
       AuthApi.middleware,
       ProfileApi.middleware,
+      ProductsApi.middleware,
+      CategoriesApi.middleware,
       SearchApi.middleware,
       ServicesApi.middleware,
       CitiesApi.middleware,
@@ -70,8 +86,13 @@ export const store = configureStore({
       AddressesApi.middleware,
       AppInfoApi.middleware,
       MembershipsApi.middleware,
+      AttributesApi.middleware,
       NotificationsApi.middleware,
+      ProviderProductsApi.middleware,
+      ProviderPackagesApi.middleware,
       CompaniesApi.middleware,
+      ProviderOrdersApi.middleware,
+      ProviderCompanyApi.middleware,
       ChatApi.middleware
     ),
 });

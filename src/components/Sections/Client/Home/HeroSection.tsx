@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { getLocale, getTranslations } from "next-intl/server";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import React from "react";
 
-export default async function HeroSection() {
-  const t = await getTranslations();
-  const lang = await getLocale();
+export default function HeroSection() {
+  const t = useTranslations();
+  const lang = useLocale();
   const isRtl = lang === "ar";
 
   return (

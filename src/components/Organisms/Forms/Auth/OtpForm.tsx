@@ -1,96 +1,258 @@
 "use client";
 
-import React, { useEffect, useState, useActionState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { ErrorType } from "@/types/Errors";
+import { useLocale } from "next-intl";
+import { toast } from "sonner";
+import {
+  useResendOtpMutation,
+  useVerifyOtpMutation,
+} from "@/store/services/Auth/Auth";
+import { setAuthTokenClient } from "@/lib/auth/auth-client";
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp";
-import { useLocale } from "next-intl";
-import { toast } from "sonner";
-import { verifyOtpAction } from "@/components/actions/verifyOtpAction";
+import { TypeRegisterType } from "../../Dialogs/RegisterDialog";
+import { LangType } from "@/types/globals";
+
+const otpSchema = z.object({
+  otp: z.string().length(6, {
+    message: "OTP must be 6 digits / يجب أن يتكون الكود من 6 أرقام.",
+  }),
+  phone: z
+    .string()
+    .min(1, { message: "Phone is required / رقم الهاتف مطلوب." }),
+});
+type OtpFormValues = z.infer<typeof otpSchema>;
 
 interface Props {
   phone: string;
-  type: string;
-  setType: (type: string) => void;
+  type: TypeRegisterType;
+  setType: (open: TypeRegisterType) => void;
   setOpen: (open: boolean) => void;
 }
 
-export default function OtpForm({ phone, setOpen, type, setType }: Props) {
-  const lang = useLocale();
-  const [timer, setTimer] = useState<number>(30);
+const OtpForm = ({ phone, setOpen, type, setType }: Props) => {
+  const lang = useLocale() as LangType;
+  const [timer, setTimer] = useState<number>(20);
+  const [formMessage, setFormMessage] = useState<{
+    message: string;
+    success: boolean;
+  } | null>(null);
 
-  const [state, formAction, isPending] = useActionState(verifyOtpAction, {
-    success: false,
-    message: "",
+  const [verifyOtp, { isLoading: isVerifying }] = useVerifyOtpMutation();
+  const [ResendOtp, { isLoading: isSending }] = useResendOtpMutation();
+
+  const {
+    handleSubmit,
+    control,
+    register,
+    watch,
+    setValue,
+    formState: { errors, isSubmitting },
+  } = useForm<OtpFormValues>({
+    resolver: zodResolver(otpSchema),
+    defaultValues: {
+      otp: "",
+      phone: phone || "",
+    },
+    mode: "onChange",
   });
 
+  const currentOtpValue = watch("otp");
+
   useEffect(() => {
-    if (state.success) {
+    setValue("phone", phone || "");
+  }, [phone, setValue]);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (timer > 0) {
+      interval = setInterval(() => {
+        setTimer((prev) => prev - 1);
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [timer]);
+
+  const onSubmit = async (data: OtpFormValues) => {
+    setFormMessage(null);
+
+    const values = new FormData();
+    values.append("code", data.otp);
+    values.append("phone", data.phone);
+
+    try {
+      const res = await verifyOtp(values).unwrap();
+      setFormMessage({
+        message:
+          lang === "ar"
+            ? "تم التحقق من الكود بنجاح ✅"
+            : "Verification successful ✅",
+        success: true,
+      });
       toast.success(
-        lang === "ar" ? "تم التحقق بنجاح ✅" : "Verification successful ✅"
+        lang === "ar"
+          ? "تم التحقق من الكود بنجاح ✅"
+          : "Verification successful ✅"
       );
+      setAuthTokenClient(res?.token);
+
       if (type === "forgetPassword") {
         setType("resetPassword");
       } else {
         setOpen(false);
-        setTimeout(() => window.location.reload(), 1000);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1200);
       }
-    } else if (state.message) {
-      toast.error(state.message);
+    } catch (error) {
+      const err = error as ErrorType;
+      const errorMessage =
+        err?.data?.message ||
+        (lang === "ar"
+          ? "فشل التحقق من الكود. حاول مرة أخرى."
+          : "OTP verification failed. Try again.");
+      setFormMessage({ message: errorMessage, success: false });
+      toast.error(errorMessage);
     }
-  }, [state, setOpen, setType, type, lang]);
+  };
 
-  useEffect(() => {
-    if (timer > 0) {
-      const interval = setInterval(() => setTimer((t) => t - 1), 1000);
-      return () => clearInterval(interval);
+  const handleResendCode = async () => {
+    if (timer > 0 || !phone) return;
+
+    const values = new FormData();
+    values.append("code", currentOtpValue);
+    values.append("phone", phone);
+
+    try {
+      const res = await ResendOtp(values).unwrap();
+      setTimer(20);
+      setValue("otp", "");
+      setFormMessage({
+        message:
+          lang === "ar"
+            ? "تم إرسال الكود مرة أخرى 📩"
+            : "Verification code resent 📩",
+        success: true,
+      });
+      toast.success(res?.message);
+    } catch (error) {
+      const err = error as ErrorType;
+      const errorMessage =
+        err?.data?.message ||
+        (lang === "ar"
+          ? "فشل في إعادة إرسال الكود. حاول لاحقًا."
+          : "Failed to resend code. Please try again later.");
+      setFormMessage({ message: errorMessage, success: false });
+      toast.error(errorMessage);
     }
-  }, [timer]);
+  };
+
+  const isResendDisabled = timer > 0 || isSubmitting || isSending;
+  const isSubmitDisabled =
+    isSubmitting || isVerifying || currentOtpValue.length !== 6 || !!errors.otp;
 
   return (
-    <form
-      action={formAction}
-      className="w-full max-w-md mx-auto bg-card p-8 rounded-2xl shadow-md border border-border space-y-6"
-    >
-      <input type="hidden" name="phone" value={phone} />
-
-      <div className="space-y-2 text-center">
-        <InputOTP
-          name="otp"
-          maxLength={6}
-          pattern={REGEXP_ONLY_DIGITS_AND_CHARS}
-          aria-label="One-Time Password"
-        >
-          <InputOTPGroup className="gap-2 justify-center">
-            {[...Array(6)].map((_, i) => (
-              <InputOTPSlot
-                key={i}
-                index={i}
-                className="w-11 h-12 border rounded-lg text-center"
-              />
-            ))}
-          </InputOTPGroup>
-        </InputOTP>
+    <div className="space-y-4">
+      <div className="flex flex-col gap-3 text-center">
+        <h4 className="text-sm text-gray-400">
+          {lang === "ar"
+            ? "تم إرسال كود التفعيل على رقم الجوال:"
+            : "Verification code has been sent to:"}
+        </h4>
+        <span className="font-semibold text-base">{phone || "+966..."}</span>
       </div>
 
-      <p className="text-sm text-muted-foreground text-center">
-        {lang === "ar" ? "ستنتهي صلاحية الكود خلال" : "Code will expire in"}{" "}
-        <span className="font-semibold text-destructive">
-          00:{timer.toString().padStart(2, "0")}
-        </span>
-      </p>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8" dir="ltr">
+        <input type="hidden" {...register("phone")} />
 
-      <Button
-        type="submit"
-        disabled={isPending}
-        className="h-11 w-full text-base rounded-lg"
-      >
-        {isPending ? "..." : lang === "ar" ? "تأكيد الكود" : "Verify Code"}
-      </Button>
-    </form>
+        <div className="space-y-2">
+          <Controller
+            name="otp"
+            control={control}
+            render={({ field }) => (
+              <InputOTP
+                maxLength={6}
+                pattern={REGEXP_ONLY_DIGITS_AND_CHARS}
+                value={field.value}
+                onChange={field.onChange}
+              >
+                <InputOTPGroup>
+                  {[...Array(6)].map((_, index) => (
+                    <InputOTPSlot key={index} index={index} />
+                  ))}
+                </InputOTPGroup>
+              </InputOTP>
+            )}
+          />
+          {errors.otp && (
+            <p className="text-center text-red-500 text-sm">
+              {errors.otp.message}
+            </p>
+          )}
+        </div>
+
+        <p className="text-center text-gray-500 text-sm">
+          {lang === "ar"
+            ? "ستنتهي صلاحية الكود خلال"
+            : "The code will expire in"}{" "}
+          <span className="mx-1 font-bold text-destructive">
+            00:{timer.toString().padStart(2, "0")}
+          </span>
+        </p>
+
+        {formMessage && (
+          <div
+            className={`text-center text-sm ${
+              formMessage.success ? "text-green-600" : "text-red-600"
+            }`}
+          >
+            {formMessage.message}
+          </div>
+        )}
+
+        <div className="space-y-2">
+          <Button
+            type="submit"
+            className="h-11 w-full rounded-md"
+            disabled={isSubmitDisabled}
+          >
+            {isVerifying
+              ? lang === "ar"
+                ? "جاري التحقق..."
+                : "Verifying..."
+              : lang === "ar"
+              ? "المتابعة"
+              : "Continue"}
+          </Button>
+
+          <Button
+            type="button"
+            variant="outline"
+            onClick={handleResendCode}
+            disabled={isResendDisabled}
+            className="h-11 w-full"
+          >
+            {isSending
+              ? lang === "ar"
+                ? "جاري الإرسال..."
+                : "Sending..."
+              : lang === "ar"
+              ? `أعد إرسال الرمز ${timer > 0 ? `(${timer})` : ""}`
+              : `Resend code ${timer > 0 ? `(${timer})` : ""}`}
+          </Button>
+        </div>
+      </form>
+    </div>
   );
-}
+};
+
+export default OtpForm;

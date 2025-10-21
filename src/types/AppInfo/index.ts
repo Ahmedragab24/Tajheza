@@ -1,4 +1,15 @@
 export type PageType = "terms" | "about" | "privacy" | "faq";
+export type SocialPlatform =
+  | "facebook"
+  | "twitter"
+  | "linkedin"
+  | "instagram"
+  | "tiktok";
+
+export interface SocialType {
+  platform: SocialPlatform;
+  url: string;
+}
 
 export interface SendMessageType {
   name: string;
@@ -16,6 +27,14 @@ export interface AppInfoResponseType {
     force_update: boolean;
     support_email: string;
     support_phone: string;
+  };
+}
+
+export interface SocialResponseType {
+  code: number;
+  message: string;
+  data: {
+    items: SocialType[];
   };
 }
 

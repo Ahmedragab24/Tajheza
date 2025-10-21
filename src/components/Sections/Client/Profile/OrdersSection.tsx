@@ -31,14 +31,14 @@ const OrdersSection = ({ lang }: Props) => {
     <Tabs
       dir={lang === "ar" ? "rtl" : "ltr"}
       className="w-full"
-      value={status}
+      value={status as string}
       onValueChange={(value) => setStatus(value as OrderStatusType)}
     >
       <TabsList className="w-full h-11 md:w-1/2 mx-auto flex gap-4 bg-secondary">
         {statusList.map((item) => (
           <TabsTrigger
             key={item.value}
-            value={item.value}
+            value={item.value as string}
             className="capitalize"
           >
             {item.label}
@@ -46,7 +46,7 @@ const OrdersSection = ({ lang }: Props) => {
         ))}
       </TabsList>
 
-      <TabsContent value={status}>
+      <TabsContent value={status as string}>
         <div className="p-4 space-y-4">
           {!isLoading && Orders.length === 0 && (
             <NotFoundData

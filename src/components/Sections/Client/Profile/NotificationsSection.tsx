@@ -36,7 +36,7 @@ const NotificationsSection = ({ lang }: Props) => {
         {data?.countUnreadNotifications})
       </p>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-2 gap-4">
         {!isLoading &&
           Notifications.length > 0 &&
           Notifications.map((item) => (

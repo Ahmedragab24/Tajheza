@@ -1,5 +1,5 @@
 export type OrderItemType = "product" | "package";
-export type OrderStatusType = "accepted" | "pending" | "decline";
+export type OrderStatusType = null | "accepted" | "pending" | "decline";
 
 export interface CreateOrderType {
   name: string;

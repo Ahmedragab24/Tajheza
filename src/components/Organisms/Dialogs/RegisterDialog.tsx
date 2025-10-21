@@ -55,7 +55,7 @@ const RegisterDialog = ({ children }: Props) => {
         <div className="flex flex-col-reverse md:flex-row items-center justify-between">
           <div className="px-4 py-4 w-full h-full overflow-y-auto">
             <DialogHeader className="flex flex-col justify-center items-center mb-2">
-              <Logo />
+              <Logo isBg={false} />
               <DialogTitle className="text-lg font-medium text-gray-600">
                 {type === "register" &&
                   (lang === "ar"

@@ -1,8 +1,8 @@
+"use client";
+
 import SectionTitle from "@/components/Atoms/titles/SectionTitle";
 import OccasionCard from "@/components/Molecules/Cards/OccasionCard";
-import { getCategories } from "@/lib/api/Categories";
 import { LangType } from "@/types/globals";
-import { getLocale } from "next-intl/server";
 import React, { Suspense } from "react";
 import {
   Carousel,
@@ -12,11 +12,13 @@ import {
   CarouselNext,
 } from "@/components/ui/carousel";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useLocale } from "next-intl";
+import { useGetCategoriesQuery } from "@/store/services/Categories";
 
-const OccasionsSection = async () => {
-  const lang = (await getLocale()) as LangType;
+const OccasionsSection = () => {
+  const lang = useLocale() as LangType;
   const isRtl = lang === "ar";
-  const data = await getCategories(lang);
+  const { data } = useGetCategoriesQuery(lang);
   const Categories = data?.data || [];
 
   return (
@@ -41,8 +43,8 @@ const OccasionsSection = async () => {
           />
 
           <div className="flex gap-2">
-            <CarouselPrevious className="static !w-8 !h-8 relative top-0" />
-            <CarouselNext className="static !w-8 !h-8 relative top-0" />
+            <CarouselPrevious className="!w-8 !h-8 relative top-0" />
+            <CarouselNext className="!w-8 !h-8 relative top-0" />
           </div>
         </div>
         <CarouselContent className="-ml-4">

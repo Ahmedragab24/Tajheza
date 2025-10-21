@@ -1,9 +1,24 @@
 import Image from "next/image";
 
-export default function Logo() {
+interface Props {
+  isBg: boolean;
+  size?: "md" | "lg";
+}
+
+export default function Logo({ isBg, size = "md" }: Props) {
   return (
-    <div className="relative w-20 md:w-25 h-14 md:h-20">
-      <Image src="/Logos/Logo.png" alt="logo" fill />
+    <div
+      className={`relative ${
+        size === "lg"
+          ? "!w-25 md:!w-35 !h-20 md:!h-30"
+          : "!w-20 md:!w-30 !h-14 md:!h-25"
+      } `}
+    >
+      <Image
+        src={`/Logos/${isBg ? "logo3-01 1" : "Logo"}.png`}
+        alt="logo"
+        fill
+      />
     </div>
   );
 }

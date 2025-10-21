@@ -1,15 +1,17 @@
+"use client";
+
 import SectionTitle from "@/components/Atoms/titles/SectionTitle";
 import ServiceCard from "@/components/Molecules/Cards/ServiceCard";
 import { Button } from "@/components/ui/button";
-import { getServices } from "@/lib/api/Services";
+import { useGetServicesQuery } from "@/store/services/Services";
 import { LangType } from "@/types/globals";
-import { getLocale } from "next-intl/server";
+import { useLocale } from "next-intl";
 import React from "react";
 
-const ServicesSection = async () => {
-  const lang = (await getLocale()) as LangType;
+const ServicesSection = () => {
+  const lang = useLocale() as LangType;
   const isRtl = lang === "ar";
-  const data = await getServices(lang);
+  const { data } = useGetServicesQuery(lang);
   const Services = data?.data || [];
 
   console.log("Services", Services);

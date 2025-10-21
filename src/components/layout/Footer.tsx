@@ -1,5 +1,7 @@
+"use client";
+
+import { useGetUserInfoQuery } from "@/store/services/Auth/Profile";
 import React from "react";
-// استيراد الأيقونات التي سنستخدمها
 import {
   FaInstagram,
   FaFacebookF,
@@ -8,11 +10,14 @@ import {
 } from "react-icons/fa";
 
 const Footer = () => {
+  const { data } = useGetUserInfoQuery();
+  const userInfo = data?.data;
+
+  if (userInfo?.user.type === "provider") return;
+
   return (
     <footer className="bg-primary font-['Cairo']" style={{ direction: "rtl" }}>
-      {/* الجزء العلوي - البحث والتواصل الاجتماعي */}
       <div className="bg-secondary text-[#4a2c2a] py-6 px-6 lg:px-20 flex flex-col md:flex-row justify-between items-center gap-8">
-        {/* قسم التواصل الاجتماعي */}
         <div className="text-center md:text-right">
           <h3 className="font-semibold text-base mb-4">
             تابعونا على وسائل التواصل الاجتماعي
@@ -49,7 +54,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* قسم البحث */}
         <div className="w-full md:w-auto text-center md:text-right">
           <h3 className="font-semibold text-base mb-4">
             اذا إحتجت إلى تجهيزة بالبحث عن خدمتك
@@ -70,9 +74,7 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* الجزء الرئيسي - الروابط والمعلومات */}
       <div className="container mx-auto py-12 px-6 lg:px-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 text-center md:text-right">
-        {/* العمود الأول: الشعار والمعلومات */}
         <div className="flex flex-col items-center md:items-start lg:col-span-1">
           <img
             src="https://i.ibb.co/9hGLq2Z/tajheza-logo.png"
@@ -88,7 +90,6 @@ const Footer = () => {
           <p className="text-[#c5b8ad] text-sm">966123456789 :الاتصال بالدعم</p>
         </div>
 
-        {/* العمود الثاني: دليل الشراء */}
         <div className="lg:col-span-1">
           <h4 className="text-lg font-bold text-[#e3dcd5] mb-6">دليل الشراء</h4>
           <ul className="space-y-4">
@@ -127,7 +128,6 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* العمود الثالث: خدمات العملاء */}
         <div className="lg:col-span-1">
           <h4 className="text-lg font-bold text-[#e3dcd5] mb-6">
             خدمات العملاء

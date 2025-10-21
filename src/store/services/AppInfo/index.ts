@@ -5,6 +5,7 @@ import {
   PageResponseType,
   PageType,
   SendMessageType,
+  SocialResponseType,
 } from "@/types/AppInfo";
 import { LangType } from "@/types/globals";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
@@ -21,7 +22,7 @@ export const AppInfoApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["AppInfo", "Page"],
+  tagTypes: ["AppInfo", "Page", "social"],
 
   endpoints: (builder) => ({
     GetAppInfo: builder.query<AppInfoResponseType, void>({
@@ -30,6 +31,14 @@ export const AppInfoApi = createApi({
         method: "GET",
       }),
       providesTags: ["AppInfo"],
+    }),
+
+    GetSocialLinks: builder.query<SocialResponseType, void>({
+      query: () => ({
+        url: `/social-links`,
+        method: "GET",
+      }),
+      providesTags: ["social"],
     }),
 
     GetPage: builder.query<
@@ -53,5 +62,9 @@ export const AppInfoApi = createApi({
   }),
 });
 
-export const { useContactUsMutation, useGetAppInfoQuery, useGetPageQuery } =
-  AppInfoApi;
+export const {
+  useContactUsMutation,
+  useGetAppInfoQuery,
+  useGetPageQuery,
+  useGetSocialLinksQuery,
+} = AppInfoApi;

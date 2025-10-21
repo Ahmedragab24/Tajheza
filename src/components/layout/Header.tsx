@@ -13,10 +13,13 @@ import SearchInput from "../Atoms/inputs/SearchInput";
 import ToggleLanguage from "../Molecules/Toggles/ToggleLanguage";
 import MenuLinks from "../Molecules/Menus/MenuLinks";
 import RegisterDialog from "../Organisms/Dialogs/RegisterDialog";
-import { checkAuthStatus } from "@/lib/auth/auth-client";
+import { getAuthTokenClient } from "@/lib/auth/auth-client";
+import { useGetUserInfoQuery } from "@/store/services/Auth/Profile";
 
 export default function Header() {
-  const isLogin = checkAuthStatus();
+  const isLogin = getAuthTokenClient();
+  const { data } = useGetUserInfoQuery();
+  const userInfo = data?.data;
 
   return (
     <header className="bg-white shadow-lg Container py-2 sticky top-0 z-50">
@@ -65,18 +68,20 @@ export default function Header() {
           {/* Logo */}
           <div className="flex items-center">
             <a href="#" className="text-primary hover:text-primary/90">
-              <Logo />
+              <Logo isBg={false} />
             </a>
           </div>
         </div>
         {/* Middle area */}
-        <div className="hidden md:flex items-center gap-4 bg-secondary p-2 rounded-full">
-          {/* Navigation menu */}
-          <MenuLinks type="desktop" />
+        {userInfo?.user.type === "user" && (
+          <div className="hidden md:flex items-center gap-4 bg-secondary p-2 rounded-full">
+            {/* Navigation menu */}
+            <MenuLinks type="desktop" />
 
-          {/* Search form */}
-          <SearchInput />
-        </div>
+            {/* Search form */}
+            <SearchInput />
+          </div>
+        )}
         {/* Right side */}
         <div className="flex flex-1 items-center justify-end gap-2">
           {/* Language */}

@@ -1,15 +1,17 @@
+"use client";
+
 import SectionTitle from "@/components/Atoms/titles/SectionTitle";
 import ProductCard from "@/components/Molecules/Cards/ProductCard";
 import { Skeleton } from "@/components/ui/skeleton";
-import { getLatestProducts } from "@/lib/api/Products";
+import { useGetLatestProductsQuery } from "@/store/services/Products";
 import { LangType } from "@/types/globals";
-import { getLocale } from "next-intl/server";
+import { useLocale } from "next-intl";
 import React, { Suspense } from "react";
 
-const LatestProductsSection = async () => {
-  const lang = (await getLocale()) as LangType;
+const LatestProductsSection = () => {
+  const lang = useLocale() as LangType;
   const isRtl = lang === "ar";
-  const data = await getLatestProducts(lang);
+  const { data } = useGetLatestProductsQuery(lang);
   const Products = data?.data || [];
 
   console.log("Products", Products);

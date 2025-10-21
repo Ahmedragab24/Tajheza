@@ -4,10 +4,10 @@ import StoreProvider from "@/providers/QueryProvider";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import ScrollUp from "@/components/layout/scrollUp";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 
 const TajawalSans = Tajawal({
   variable: "--font-Tajawal-sans",
@@ -41,8 +41,8 @@ export default async function RootLayout({
           <body className={`${TajawalSans.variable} antialiased`}>
             <Header />
             {children}
-            <ScrollUp />
             <Footer />
+            <ScrollUp />
             <Toaster />
           </body>
         </StoreProvider>

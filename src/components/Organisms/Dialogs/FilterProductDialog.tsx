@@ -3,7 +3,7 @@
 import { ProductFilteringType } from "@/app/[locale]/client/services/page";
 import { TagInput } from "@/components/Atoms/inputs/TagInput";
 import PriceRange from "@/components/Molecules/Progress/PriceRange";
-import SelectCity from "@/components/Molecules/Selects/SelectCity.tsx";
+import SelectCity from "@/components/Molecules/Selects/SelectCity";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
