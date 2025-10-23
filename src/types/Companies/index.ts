@@ -34,6 +34,15 @@ export interface OwnerType {
   is_online: boolean;
 }
 
+export interface CompanyType {
+  id: number;
+  name: string;
+  description: string;
+  address: string;
+  logo: string;
+  background: null | string;
+  created_at: string;
+}
 export interface CompanyDetailsType {
   id: number;
   name: string;
@@ -43,13 +52,17 @@ export interface CompanyDetailsType {
   rating: number;
   reviews_count: number;
   owner: OwnerType;
-  ordered_users: [];
+  ordered_users: { id: number; name: string; image: string }[];
   services: ServiceType[];
   reviews: ReviewType[];
 }
 
 export interface CompanyResponseType {
   data: CompanyDetailsType;
+}
+export interface AllCompaniesResponseType {
+  status: boolean;
+  data: CompanyType[];
 }
 
 export interface StoreReviewResponseType {

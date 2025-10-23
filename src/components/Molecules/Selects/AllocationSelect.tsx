@@ -4,16 +4,16 @@ import React from "react";
 import RiyalIcon from "@/components/Atoms/Icons/RiyalIcon";
 
 export interface OptionType {
-  label: string;
-  value: string;
-  price: number;
+  id: number;
+  name: string;
+  price: string;
 }
 
 interface Props {
   items: OptionType[];
   lang: LangType;
-  SelectAllocation: string;
-  setSelectAllocation: (value: string) => void;
+  SelectAllocation: number;
+  setSelectAllocation: (value: number) => void;
 }
 
 const AllocationSelect = ({
@@ -28,14 +28,14 @@ const AllocationSelect = ({
   return (
     <div className="flex gap-2 md:gap-4">
       {items.map((item) => {
-        const isSelected = SelectAllocation === item.value;
+        const isSelected = SelectAllocation === item.id;
 
         return (
           <div
-            key={item.value}
+            key={item.id}
             className={`
               flex flex-col items-center justify-center 
-              p-4 w-24 h-24 md:w-32 md:h-32 rounded-xl cursor-pointer 
+              p-4 w-32 h-32 rounded-xl cursor-pointer 
               shadow-md transition-all duration-200
               ${
                 isSelected
@@ -43,7 +43,7 @@ const AllocationSelect = ({
                   : "border border-secondary bg-white hover:border-gray-300 hover:bg-primary/5"
               }
             `}
-            onClick={() => setSelectAllocation(item.value)}
+            onClick={() => setSelectAllocation(item.id)}
             role="radio"
             aria-checked={isSelected}
             tabIndex={0}
@@ -53,7 +53,7 @@ const AllocationSelect = ({
                 isSelected ? "text-primary" : "text-gray-700"
               }`}
             >
-              {item.label}
+              {item.name}
             </span>
 
             <div className="flex items-center gap-1 mt-1">
@@ -62,7 +62,7 @@ const AllocationSelect = ({
                   isSelected ? "text-primary" : "text-gray-600"
                 }`}
               >
-                {formatPrice(item.price)}
+                {formatPrice(Number(item.price))}
               </span>
               <RiyalIcon />
             </div>

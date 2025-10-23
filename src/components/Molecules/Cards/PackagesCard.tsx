@@ -1,4 +1,5 @@
 "use client";
+
 import type { PackageType } from "@/types/Packages";
 import {
   Card,
@@ -12,6 +13,10 @@ import { useLocale } from "next-intl";
 import { LangType } from "@/types/globals";
 import UpdatePackageDialog from "@/components/Organisms/Dialogs/UpdatePackageDialog";
 import DeletePackageDialog from "@/components/Organisms/Dialogs/DeletePackageDialog";
+import { useGetUserInfoQuery } from "@/store/services/Auth/Profile";
+import BookingDialog from "@/components/Organisms/Dialogs/BookingDialog";
+import { useGetPackagesByIdQuery } from "@/store/services/Packages";
+import RiyalIcon from "@/components/Atoms/Icons/RiyalIcon";
 
 interface Props {
   Package: PackageType;
@@ -19,20 +24,25 @@ interface Props {
 
 const PackagesCard = ({ Package }: Props) => {
   const lang = useLocale() as LangType;
+  const { data } = useGetUserInfoQuery();
+  const userInfo = data?.data?.user;
+  const { data: PackageDetails } = useGetPackagesByIdQuery(Package.id);
 
   if (!Package) {
     return (
       <Card className="h-full flex flex-col">
         <CardContent className="flex items-center justify-center h-64">
-          <p className="text-muted-foreground">Package data unavailable</p>
+          <p className="text-muted-foreground">
+            {lang === "ar"
+              ? "بيانات الحزمة غير متوفرة"
+              : "Package data unavailable"}
+          </p>
         </CardContent>
       </Card>
     );
   }
 
-  const originalPrice = Number.parseFloat(Package.price);
   const discountPercent = Number.parseFloat(Package.discount_percentage);
-  const discountedPrice = originalPrice * (1 - discountPercent / 100);
 
   const formatDate = (dateString: string) => {
     try {
@@ -55,7 +65,7 @@ const PackagesCard = ({ Package }: Props) => {
   };
 
   return (
-    <Card className="h-full flex flex-col overflow-hidden hover:shadow-lg transition-shadow duration-300">
+    <Card className="h-full flex flex-col overflow-hidden hover:shadow-lg transition-shadow duration-300 gap-0">
       {Package.image && (
         <div className="relative w-full h-48 bg-muted overflow-hidden">
           <Image
@@ -66,13 +76,14 @@ const PackagesCard = ({ Package }: Props) => {
           />
           {discountPercent > 0 && (
             <div className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-md text-sm font-semibold">
-              -{discountPercent}%
+              {lang === "ar" ? "خصم : " : "discount : "}
+              {discountPercent}%
             </div>
           )}
         </div>
       )}
 
-      <CardHeader>
+      <CardHeader className="mt-2">
         <div className="flex items-start justify-between gap-2">
           <div className="flex-1">
             <h3 className="font-semibold text-lg text-foreground line-clamp-2">
@@ -87,21 +98,17 @@ const PackagesCard = ({ Package }: Props) => {
         </div>
       </CardHeader>
 
-      <CardContent className="flex-1">
+      <CardContent className="flex-1 mb-4">
         <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
           {Package.description}
         </p>
 
         <div className="mb-3">
-          <div className="flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-foreground">
-              ${discountedPrice.toFixed(2)}
+          <div className="flex items-center gap-1">
+            <span className="text-2xl font-bold text-primary">
+              {Package.price}
             </span>
-            {discountPercent > 0 && (
-              <span className="text-sm text-muted-foreground line-through">
-                ${originalPrice.toFixed(2)}
-              </span>
-            )}
+            <RiyalIcon />
           </div>
         </div>
 
@@ -117,10 +124,16 @@ const PackagesCard = ({ Package }: Props) => {
         </div>
       </CardContent>
 
-      <CardFooter className="gap-2">
-        <UpdatePackageDialog packageData={Package} lang={lang} />
-        <DeletePackageDialog packageData={Package} lang={lang} />
-      </CardFooter>
+      {userInfo?.type === "provider" ? (
+        <CardFooter className="gap-2">
+          <UpdatePackageDialog packageData={Package} lang={lang} />
+          <DeletePackageDialog packageData={Package} lang={lang} />
+        </CardFooter>
+      ) : (
+        <div className="flex justify-center items-center">
+          <BookingDialog Package={PackageDetails?.data} count={1} isRtl />
+        </div>
+      )}
     </Card>
   );
 };

@@ -52,7 +52,11 @@ const ProductDetails = ({ lang, product }: Props) => {
       </div>
 
       {/* Company Info */}
-      <CompanyInfo companyInfo={product.company} lang={lang} />
+      <CompanyInfo
+        companyInfo={product.company}
+        lang={lang}
+        product={product}
+      />
 
       {/* Description */}
       <div className="space-y-4 border-b pb-4">

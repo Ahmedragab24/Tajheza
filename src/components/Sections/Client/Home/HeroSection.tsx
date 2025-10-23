@@ -1,3 +1,4 @@
+import OccasionsDialog from "@/components/Organisms/Dialogs/OccasionsDialog";
 import { Button } from "@/components/ui/button";
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
@@ -24,9 +25,11 @@ export default function HeroSection() {
           <p className="text-xs sm:text-lg text-gray-700 leading-relaxed">
             {t("Hero.description")}
           </p>
-          <Button className="mx-auto lg:mx-0 w-fit px-12 sm:px-16 rounded-full !h-12 text-base sm:text-lg">
-            {t("Hero.button")}
-          </Button>
+          <OccasionsDialog>
+            <Button className="mx-auto lg:mx-0 w-fit px-12 sm:px-16 rounded-full !h-12 text-base sm:text-lg">
+              {t("Hero.button")}
+            </Button>
+          </OccasionsDialog>
         </div>
 
         <div className="w-2/3 lg:w-[480px] lg:h-[480px] p-4 sm:p-6 border rounded-tr-[25%] rounded-bl-[25%] mx-auto">

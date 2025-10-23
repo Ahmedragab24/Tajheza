@@ -15,8 +15,10 @@ import MenuLinks from "../Molecules/Menus/MenuLinks";
 import RegisterDialog from "../Organisms/Dialogs/RegisterDialog";
 import { getAuthTokenClient } from "@/lib/auth/auth-client";
 import { useGetUserInfoQuery } from "@/store/services/Auth/Profile";
+import { useLocale } from "next-intl";
 
 export default function Header() {
+  const lang = useLocale();
   const isLogin = getAuthTokenClient();
   const { data } = useGetUserInfoQuery();
   const userInfo = data?.data;
@@ -26,6 +28,12 @@ export default function Header() {
       <div className="flex h-15 md:h-18 items-center justify-between gap-4">
         {/* Left side */}
         <div className="flex flex-1 items-center gap-2">
+          {/* Logo */}
+          <div className="flex items-center">
+            <a href="#" className="text-primary hover:text-primary/90">
+              <Logo isBg={false} />
+            </a>
+          </div>
           {/* Mobile menu trigger */}
           <Popover>
             <PopoverTrigger asChild>
@@ -65,21 +73,24 @@ export default function Header() {
               <MenuLinks type="mobile" />
             </PopoverContent>
           </Popover>
-          {/* Logo */}
-          <div className="flex items-center">
-            <a href="#" className="text-primary hover:text-primary/90">
-              <Logo isBg={false} />
-            </a>
-          </div>
         </div>
         {/* Middle area */}
-        {userInfo?.user.type === "user" && (
-          <div className="hidden md:flex items-center gap-4 bg-secondary p-2 rounded-full">
+        {userInfo?.user.type !== "provider" ? (
+          <div className="hidden md:flex items-center justify-between gap-4 bg-secondary p-2 rounded-full w-2xl">
             {/* Navigation menu */}
             <MenuLinks type="desktop" />
 
             {/* Search form */}
             <SearchInput />
+          </div>
+        ) : (
+          <div className="flex items-center gap-2 text-lg">
+            <h4 className="">
+              {lang === "ar" ? "👋 مرحبا :" : "👋 welcome :"}
+            </h4>
+            <h4 className="text-primary font-bold underline">
+              {userInfo?.user?.name}
+            </h4>
           </div>
         )}
         {/* Right side */}
@@ -89,7 +100,11 @@ export default function Header() {
           {/* Notification */}
           <NotificationMenu />
           {/* User menu Or Register */}
-          {isLogin ? <UserMenu /> : <RegisterDialog />}
+          {isLogin ? (
+            userInfo?.user.type !== "provider" && <UserMenu />
+          ) : (
+            <RegisterDialog />
+          )}
         </div>
       </div>
     </header>

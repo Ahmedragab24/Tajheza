@@ -34,7 +34,7 @@ const MembershipSection = ({ lang }: Props) => {
         />
       )}
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-2 gap-4">
         {!isLoading &&
           Packages.length > 0 &&
           Packages.map((item) => (

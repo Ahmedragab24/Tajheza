@@ -83,7 +83,7 @@ const RegisterForm = ({ setType, setPhone }: RegisterFormProps) => {
     <Form {...form}>
       <div className="space-y-4 bg-muted px-4 py-4 md:p-6 rounded-xl shadow-md">
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid md:grid-cols-2 gap-4 md:gap-2">
             <FormField
               control={form.control}
               name="name"
@@ -131,7 +131,7 @@ const RegisterForm = ({ setType, setPhone }: RegisterFormProps) => {
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid md:grid-cols-2 gap-4 md:gap-2">
             <FormField
               control={form.control}
               name="phone"
@@ -160,7 +160,7 @@ const RegisterForm = ({ setType, setPhone }: RegisterFormProps) => {
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid md:grid-cols-2 gap-4 md:gap-2">
             <FormField
               control={form.control}
               name="password"

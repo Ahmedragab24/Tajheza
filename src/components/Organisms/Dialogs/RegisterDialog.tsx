@@ -48,7 +48,7 @@ const RegisterDialog = ({ children }: Props) => {
         )}
       </DialogTrigger>
       <DialogContent
-        className={`max-h-[95vh] p-0 overflow-hidden ${
+        className={`max-h-[90vh] md:max-h-[95vh] p-0 overflow-y-auto ${
           type !== "register" ? "!max-w-4xl" : "!max-w-5xl"
         }`}
       >

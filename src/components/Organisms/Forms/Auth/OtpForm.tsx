@@ -110,8 +110,8 @@ const OtpForm = ({ phone, setOpen, type, setType }: Props) => {
       } else {
         setOpen(false);
         setTimeout(() => {
-          window.location.reload();
-        }, 1200);
+          window.location.href = "/";
+        }, 1000);
       }
     } catch (error) {
       const err = error as ErrorType;
@@ -193,11 +193,6 @@ const OtpForm = ({ phone, setOpen, type, setType }: Props) => {
               </InputOTP>
             )}
           />
-          {errors.otp && (
-            <p className="text-center text-red-500 text-sm">
-              {errors.otp.message}
-            </p>
-          )}
         </div>
 
         <p className="text-center text-gray-500 text-sm">

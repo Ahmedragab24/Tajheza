@@ -17,7 +17,7 @@ import { SortByType } from "@/types/Search";
 import SelectSorting from "@/components/Molecules/Selects/SelectSorting";
 
 export interface ProductFilteringType {
-  name: null | string[];
+  name: null | string;
   categoryId: null | number;
   date: null | Date;
   city: undefined | string;
@@ -88,18 +88,20 @@ const ServicesPage = () => {
 
   return (
     <div className="Container my-10 space-y-10">
-      <div className="flex items-center justify-center gap-2">
-        <SelectSorting
-          value={Filter.sortedBy}
-          onChange={setFilter}
-          lang={lang}
-        />
+      <div className="flex flex-col items-center justify-center gap-4">
+        <div className="flex items-center gap-2">
+          <SelectSorting
+            value={Filter.sortedBy}
+            onChange={setFilter}
+            lang={lang}
+          />
 
-        <FilterProductDialog
-          TabValue={Filter}
-          setTabValue={setFilter}
-          lang={lang}
-        />
+          <FilterProductDialog
+            TabValue={Filter}
+            setTabValue={setFilter}
+            lang={lang}
+          />
+        </div>
 
         <ServicesTabs TabValue={Filter} setTabValue={setFilter} />
       </div>

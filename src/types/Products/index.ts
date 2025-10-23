@@ -37,7 +37,7 @@ export interface ProductDetailsType {
   };
   company: CompanyInfoType;
   images: { id: number; url: string }[];
-  options: [];
+  options: { id: number; name: string; price: string }[];
   addons: { id: number; name: string; price: string }[];
   targets: string[];
   related_products: [];

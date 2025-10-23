@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useGetServicesQuery } from "@/store/services/Services";
 import { LangType } from "@/types/globals";
 import { useLocale } from "next-intl";
+import Link from "next/link";
 import React from "react";
 
 const ServicesSection = () => {
@@ -31,7 +32,9 @@ const ServicesSection = () => {
           />
 
           <Button variant={"link"}>
-            {isRtl ? "عرض جميع الخدمات" : "View all services"}
+            <Link href={"/client/services"}>
+              {isRtl ? "عرض جميع الخدمات" : "View all services"}
+            </Link>
           </Button>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">

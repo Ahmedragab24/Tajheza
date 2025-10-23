@@ -45,12 +45,12 @@ export function CompanyHero({ company, lang }: CompanyHeroProps) {
                 <div className="w-32 h-32 rounded-2xl bg-card shadow-2xl">
                   <Image
                     src={
-                      company.logo ||
+                      company?.logo ||
                       "/placeholder.svg?height=120&width=120&query=company+logo"
                     }
-                    alt={company.name}
+                    alt={company?.name || ""}
                     fill
-                    className="w-full h-full object-contain rounded-xl p-2"
+                    className="w-full h-full object-cover rounded-xl"
                   />
                 </div>
                 {company.owner.is_online && (

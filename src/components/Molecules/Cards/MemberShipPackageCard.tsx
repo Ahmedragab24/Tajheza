@@ -7,6 +7,7 @@ import { CheckCircle2, Crown } from "lucide-react";
 import React from "react";
 import { MembershipPackageType } from "@/types/MembershipPackedge";
 import RiyalIcon from "@/components/Atoms/Icons/RiyalIcon";
+import Image from "next/image";
 
 interface Props {
   lang: LangType;
@@ -22,17 +23,26 @@ const MemberShipPackageCard = ({ lang, package: pkg }: Props) => {
           : "border-gray-200"
       }`}
     >
-      <CardContent className="p-6 flex flex-col items-center gap-4 text-center">
+      <Image
+        src={pkg.image || ""}
+        alt={pkg.name}
+        fill
+        className="object-cover absolute inset-0 z-0"
+      />
+
+      <div className="absolute inset-0 bg-black/30 z-10" />
+
+      <CardContent className="relative z-20 p-6 flex flex-col items-center gap-4 text-center">
         {pkg.the_best && (
-          <div className="flex items-center gap-1 absolute top-3 left-3 bg-primary text-orange-200 text-sm font-medium px-3 py-1 rounded-full">
+          <div className="flex items-center gap-1 absolute -top-2 md:top-0 left-3 bg-primary text-orange-200 text-sm font-medium px-3 py-1 rounded-full">
             <span>{lang === "ar" ? "الأفضل" : "Best"}</span>
             <Crown className="w-4 h-4 " />
           </div>
         )}
 
-        <h2 className="text-xl font-semibold text-primary">{pkg.name}</h2>
+        <h2 className="text-xl font-semibold text-white">{pkg.name}</h2>
 
-        <div className="flex items-center justify-center gap-1 text-primary font-bold text-lg p-3 rounded-full border border-secondary">
+        <div className="flex items-center justify-center gap-1 bg-white text-primary font-bold text-lg p-3 rounded-full border border-white/50">
           {pkg.price > 0 ? (
             <>
               <span>{pkg.price}</span>
@@ -43,13 +53,16 @@ const MemberShipPackageCard = ({ lang, package: pkg }: Props) => {
             <span>{lang === "ar" ? "مجانية" : "Free"}</span>
           )}
         </div>
-        <p className="text-gray-600 text-sm">
+        <p className="text-gray-200 text-sm">
           {lang === "ar" ? "يتم إصدار الفاتورة سنويًا" : "Billed annually"}
         </p>
 
         <ul className="w-full text-start mt-4 space-y-2">
           {pkg.features.map((feature) => (
-            <li key={feature.id} className="flex items-center gap-2 text-sm">
+            <li
+              key={feature.id}
+              className="flex items-center gap-2 text-sm text-white drop-shadow-sm"
+            >
               <CheckCircle2 className="text-green-500 w-4 h-4" />
               <span>{feature.name}</span>
             </li>

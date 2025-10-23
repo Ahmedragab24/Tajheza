@@ -28,7 +28,7 @@ const LogoutBtn = ({ lang, handleOpenChange }: Props) => {
         `${lang === "ar" ? "تم تسجيل الخروج" : "You are logged out"}`
       );
       setTimeout(() => {
-        window.location.reload();
+        window.location.href = "/";
       }, 1200);
     } catch (error) {
       const err = error as ErrorType;
