@@ -1,3 +1,5 @@
+import { ProductType } from "../Products";
+
 export interface PackageType {
   id: number;
   name: string;
@@ -9,8 +11,30 @@ export interface PackageType {
   status: string;
   image: null | string;
 }
+export interface PackageDetailsType {
+  id: number;
+  name: string;
+  description: string;
+  price: string;
+  discount_percentage: string;
+  from_date: string;
+  to_date: string;
+  status: string;
+  image: string;
+  company: {
+    id: number;
+    name: string;
+    address: string;
+    logo: string;
+  };
+  products: ProductType[];
+}
 
 export interface PackagesResponseType {
   status: boolean;
   data: PackageType[];
+}
+export interface PackageDetailsResponseType {
+  status: boolean;
+  data: PackageDetailsType;
 }

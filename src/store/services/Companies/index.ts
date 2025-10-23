@@ -1,5 +1,6 @@
 import { getAuthTokenClient } from "@/lib/auth/auth-client";
 import {
+  AllCompaniesResponseType,
   CompanyResponseType,
   StoreReviewResponseType,
 } from "@/types/Companies";
@@ -13,8 +14,13 @@ export const CompaniesApi = createApi({
     baseUrl: process.env.NEXT_PUBLIC_API_URL,
   }),
 
-  tagTypes: ["CompanyDetails"],
+  tagTypes: ["Companies", "CompanyDetails"],
   endpoints: (builder) => ({
+    getAllCompanies: builder.query<AllCompaniesResponseType, void>({
+      query: () => `/get-all-companies`,
+      providesTags: ["Companies"],
+    }),
+
     getCompanyById: builder.query<CompanyResponseType, number>({
       query: (companyId) => `/get-company?id=${companyId}`,
       providesTags: ["CompanyDetails"],
@@ -34,5 +40,8 @@ export const CompaniesApi = createApi({
   }),
 });
 
-export const { useGetCompanyByIdQuery, useStoreCompanyReviewMutation } =
-  CompaniesApi;
+export const {
+  useGetAllCompaniesQuery,
+  useGetCompanyByIdQuery,
+  useStoreCompanyReviewMutation,
+} = CompaniesApi;

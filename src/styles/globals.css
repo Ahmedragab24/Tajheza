@@ -51,7 +51,7 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: hsla(8, 53%, 29%, 1);
+  --primary: hsl(354,33%,25%);
   --primary-foreground: oklch(0.985 0 0);
   --secondary: hsla(22, 48%, 83%, 1);
   --secondary-foreground: oklch(0.205 0 0);

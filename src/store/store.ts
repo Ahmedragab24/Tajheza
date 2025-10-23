@@ -31,12 +31,16 @@ import { ProviderProductsApi } from "./services/Provider/products";
 import { ProviderPackagesApi } from "./services/Provider/Packages";
 import { ProviderOrdersApi } from "./services/Provider/ProviderOrders";
 import { ProviderCompanyApi } from "./services/Provider/Company";
+import serviceReducer from "./features/servicesSlice";
+import { PackagesApi } from "./services/Packages";
+import { ProviderDiscountCodesApi } from "./services/Provider/DiscountCodes";
 
 const rootReducer = combineReducers({
-  //   userData: userDataReducer,
+  service: serviceReducer,
   [AuthApi.reducerPath]: AuthApi.reducer,
   [ProfileApi.reducerPath]: ProfileApi.reducer,
   [ProductsApi.reducerPath]: ProductsApi.reducer,
+  [PackagesApi.reducerPath]: PackagesApi.reducer,
   [CategoriesApi.reducerPath]: CategoriesApi.reducer,
   [SearchApi.reducerPath]: SearchApi.reducer,
   [ServicesApi.reducerPath]: ServicesApi.reducer,
@@ -55,6 +59,7 @@ const rootReducer = combineReducers({
   [ChatApi.reducerPath]: ChatApi.reducer,
   [ProviderOrdersApi.reducerPath]: ProviderOrdersApi.reducer,
   [ProviderCompanyApi.reducerPath]: ProviderCompanyApi.reducer,
+  [ProviderDiscountCodesApi.reducerPath]: ProviderDiscountCodesApi.reducer,
 });
 
 const persistConfig = {
@@ -86,6 +91,7 @@ export const store = configureStore({
       AddressesApi.middleware,
       AppInfoApi.middleware,
       MembershipsApi.middleware,
+      PackagesApi.middleware,
       AttributesApi.middleware,
       NotificationsApi.middleware,
       ProviderProductsApi.middleware,
@@ -93,6 +99,7 @@ export const store = configureStore({
       CompaniesApi.middleware,
       ProviderOrdersApi.middleware,
       ProviderCompanyApi.middleware,
+      ProviderDiscountCodesApi.middleware,
       ChatApi.middleware
     ),
 });

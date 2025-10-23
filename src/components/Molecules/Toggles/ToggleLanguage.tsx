@@ -51,7 +51,7 @@ const ToggleLanguage = ({ type = "icon", className }: Props) => {
             <Tooltip>
               <TooltipTrigger asChild>
                 <DropdownMenuTrigger asChild className="group">
-                  <Button variant={"ghost"} aria-label="ToggleLanguage">
+                  <Button variant={"none"} aria-label="ToggleLanguage">
                     <Globe
                       strokeWidth={1.5}
                       className="duration-400 group-hover:text-primary"

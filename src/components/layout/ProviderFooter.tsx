@@ -3,154 +3,143 @@
 import React from "react";
 import Logo from "../Atoms/images/logo";
 import SocialIconsGroup from "../Molecules/IconsGroup/SocialIconsGroup";
+import { useLocale, useTranslations } from "next-intl";
+import Link from "next/link";
 
-const ProviderFooter = () => {
+const Footer = () => {
+  const t = useTranslations("ProviderFooter");
+  const lang = useLocale();
+
+  const dashboardLinks = [
+    { id: 1, label: t("dashboard.home"), path: `/${lang}/provider/home` },
+    {
+      id: 2,
+      label: t("dashboard.myServices"),
+      path: `/${lang}/provider/my-services`,
+    },
+    { id: 3, label: t("dashboard.orders"), path: `/${lang}/provider/orders` },
+    {
+      id: 4,
+      label: t("dashboard.addService"),
+      path: `/${lang}/provider/add-service`,
+    },
+  ];
+
+  const companyLinks = [
+    { id: 1, label: t("company.profile"), path: `/${lang}/provider/profile` },
+    {
+      id: 2,
+      label: t("company.conversations"),
+      path: `/${lang}/provider/conversations`,
+    },
+    {
+      id: 3,
+      label: t("company.notifications"),
+      path: `/${lang}/provider/notifications`,
+    },
+    {
+      id: 4,
+      label: t("company.changePassword"),
+      path: `/${lang}/provider/change-password`,
+    },
+  ];
+
+  const importantLinks = [
+    { id: 1, label: t("important.faq"), path: `/${lang}/provider/faqs` },
+    {
+      id: 2,
+      label: t("important.privacy"),
+      path: `/${lang}/provider/privacy-policy`,
+    },
+    {
+      id: 3,
+      label: t("important.terms"),
+      path: `/${lang}/provider/terms-and-conditions`,
+    },
+    {
+      id: 4,
+      label: t("important.customerService"),
+      path: `/${lang}/provider/customer-service`,
+    },
+  ];
+
   return (
     <footer className="bg-primary font-['Cairo']" style={{ direction: "rtl" }}>
-      <div className="container mx-auto py-12 px-6 lg:px-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 text-center md:text-right">
+      <div className="Container py-12 grid grid-cols-2 lg:grid-cols-4 gap-10 text-center md:text-start">
+        {/* Logo + Info */}
         <div className="flex flex-col items-center md:items-start lg:col-span-1">
-          <h4 className="text-lg font-bold text-[#e3dcd5] mb-3">
-            متجر تجهيزة الإلكتروني
-          </h4>
+          <h4 className="text-lg font-bold text-[#e3dcd5]">{t("title")}</h4>
           <p className="text-[#c5b8ad] text-xs leading-relaxed">
-            دعم على مدار 24 ساعة، 7 أيام في الأسبوع
+            {t("support")}
           </p>
-          <p className="text-[#c5b8ad] text-xs">966123456789 :الاتصال بالدعم</p>
 
           <Logo isBg size="lg" />
           <SocialIconsGroup />
         </div>
 
+        {/* Dashboard Links */}
         <div className="lg:col-span-1">
-          <h4 className="w-fit border-b text-lg font-bold text-[#e3dcd5] mb-6">
-            دليل الشراء
+          <h4 className="w-fit mx-auto md:mx-0 border-b text-lg font-bold text-[#e3dcd5] mb-6">
+            {t("sections.dashboard")}
           </h4>
           <ul className="space-y-4">
-            <li>
-              <a
-                href="#"
-                className="text-[#c5b8ad] hover:text-white transition-colors"
-              >
-                دليل تسجيل الطلب
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="text-[#c5b8ad] hover:text-white transition-colors"
-              >
-                طرق الدفع
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="text-[#c5b8ad] hover:text-white transition-colors"
-              >
-                كيفية شحن الطلبات
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="text-[#c5b8ad] hover:text-white transition-colors"
-              >
-                شروط إرجاع المنتج
-              </a>
-            </li>
+            {dashboardLinks.map((item) => (
+              <li key={item.id}>
+                <Link
+                  href={item.path}
+                  className="text-[#c5b8ad] hover:text-white transition-colors"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 
+        {/* Company Links */}
         <div className="lg:col-span-1">
-          <h4 className="w-fit border-b text-lg font-bold text-[#e3dcd5]  mb-6">
-            خدمات العملاء
+          <h4 className="w-fit mx-auto md:mx-0 border-b text-lg font-bold text-[#e3dcd5] mb-6">
+            {t("sections.company")}
           </h4>
           <ul className="space-y-4">
-            <li>
-              <a
-                href="#"
-                className="text-[#c5b8ad] hover:text-white transition-colors"
-              >
-                الأسئلة الشائعة
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="text-[#c5b8ad] hover:text-white transition-colors"
-              >
-                سياسة الخصوصية
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="text-[#c5b8ad] hover:text-white transition-colors"
-              >
-                تقديم شكوى
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="text-[#c5b8ad] hover:text-white transition-colors"
-              >
-                ضمان المنتجات
-              </a>
-            </li>
+            {companyLinks.map((item) => (
+              <li key={item.id}>
+                <Link
+                  href={item.path}
+                  className="text-[#c5b8ad] hover:text-white transition-colors"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 
-        {/* العمود الرابع: تجهيزة */}
+        {/* Important Links */}
         <div className="lg:col-span-1">
-          <h4 className="w-fit border-b text-lg font-bold text-[#e3dcd5] mb-6">
-            تجهيزة
+          <h4 className="w-fit mx-auto md:mx-0 border-b text-lg font-bold text-[#e3dcd5] mb-6">
+            {t("sections.support")}
           </h4>
           <ul className="space-y-4">
-            <li>
-              <a
-                href="#"
-                className="text-[#c5b8ad] hover:text-white transition-colors"
-              >
-                عروض ومحصولات
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="text-[#c5b8ad] hover:text-white transition-colors"
-              >
-                فرصة التعاون
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="text-[#c5b8ad] hover:text-white transition-colors"
-              >
-                اتصل بنا
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="text-[#c5b8ad] hover:text-white transition-colors"
-              >
-                خريطة الموقع
-              </a>
-            </li>
+            {importantLinks.map((item) => (
+              <li key={item.id}>
+                <Link
+                  href={item.path}
+                  className="text-[#c5b8ad] hover:text-white transition-colors"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
 
-      {/* الجزء السفلي - الحقوق */}
-      <div className="border-t border-[#5a3a38] py-6">
-        <p className="text-center text-sm text-[#c5b8ad]">
-          جميع حقوق هذا الموقع محفوظة لمتجر تجهيزة الإلكتروني
-        </p>
+      <div className="border-t border-secondary/20 py-6">
+        <p className="text-center text-sm text-[#c5b8ad]">{t("copyright")}</p>
       </div>
     </footer>
   );
 };
 
-export default ProviderFooter;
+export default Footer;

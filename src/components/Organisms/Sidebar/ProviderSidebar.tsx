@@ -17,7 +17,6 @@ import {
   ClipboardList,
   PlusCircle,
   Building,
-  Settings,
   Headphones,
   KeyRound,
   Trash2,
@@ -25,6 +24,8 @@ import {
   ChevronDown,
   ChevronRight,
   ChevronLeft,
+  TicketPercent,
+  MessagesSquare,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
@@ -61,6 +62,11 @@ export function ProviderSidebar() {
       icon: PlusCircle,
     },
     {
+      label: lang === "ar" ? "اكواد الخصم" : "Discount codes",
+      href: `/${lang}/provider/discount-codes`,
+      icon: TicketPercent,
+    },
+    {
       label: lang === "ar" ? "حساب الشركة" : "Company Account",
       href: `/${lang}/provider/profile`,
       icon: Building,
@@ -68,7 +74,7 @@ export function ProviderSidebar() {
     {
       label: lang === "ar" ? "المحادثات" : "Chats",
       href: `/${lang}/provider/conversations`,
-      icon: Settings,
+      icon: MessagesSquare,
     },
     {
       label: lang === "ar" ? "الإشعارات" : "Notifications",

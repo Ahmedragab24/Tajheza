@@ -11,7 +11,8 @@
   "Navigation": {
     "home": "الرئيسية",
     "services": "الخدمات",
-    "occasions": "المناسبات"
+    "occasions": "المناسبات",
+    "profile": "الحساب"
   },
   "DeleteAccount": {
     "title": "حذف الحساب",
@@ -54,5 +55,62 @@
     "profileUpdatedSuccessfully": "تم تحديث ملفك الشخصي بنجاح",
     "updateError": "خطأ",
     "somethingWentWrong": "حدث خطأ ما. يرجى المحاولة مرة أخرى."
+  },
+   "Footer": {
+    "title": "متجر تجهيزة الإلكتروني",
+    "support": "دعم على مدار 24 ساعة، 7 أيام في الأسبوع",
+    "sections": {
+      "WebsiteDirectory": "دليل الموقع",
+      "Profile": "الملف الشخصي",
+      "support": "خدمات العملاء"
+    },
+    "dashboard": {
+      "home": "الصفحة الرئيسية",
+      "Services": "الخدمات",
+      "Occasions": "المناسبات",
+      "Companies": "الشركات"
+    },
+    "company": {
+      "MyFavorites": "مفضلتي",
+      "Conversations": "المحادثات",
+      "Notifications": "الإشعارات",
+      "changePassword": "تغيير كلمة المرور"
+    },
+    "important": {
+      "faq": "الأسئلة الشائعة",
+      "privacy": "سياسة الخصوصية",
+      "terms": "الشروط والأحكام",
+      "customerService": "خدمة العملاء"
+    },
+    "copyright": "جميع حقوق هذا الموقع محفوظة لمتجر تجهيزة الإلكتروني"
+  },
+   "ProviderFooter": {
+    "title": "متجر تجهيزة الإلكتروني",
+    "support": "دعم على مدار 24 ساعة، 7 أيام في الأسبوع",
+    "sections": {
+      "dashboard": "لوحة التحكم",
+      "company": "حساب الشركة",
+      "support": "خدمات العملاء"
+    },
+    "dashboard": {
+      "home": "الصفحة الرئيسية",
+      "myServices": "خدماتي",
+      "orders": "الطلبات",
+      "addService": "إضافة خدمة جديدة"
+    },
+    "company": {
+      "profile": "ملف الشركة",
+      "conversations": "المحادثات",
+      "notifications": "الإشعارات",
+      "changePassword": "تغيير كلمة المرور"
+    },
+    "important": {
+      "faq": "الأسئلة الشائعة",
+      "privacy": "سياسة الخصوصية",
+      "terms": "الشروط والأحكام",
+      "customerService": "خدمة العملاء"
+    },
+    "copyright":
+      "© جميع حقوق هذا الموقع محفوظة لمتجر تجهيزة الإلكتروني"
   }
 }

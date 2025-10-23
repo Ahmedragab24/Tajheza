@@ -12,6 +12,7 @@ import ActionProviderBtns from "../BtnsGroup/ActionProviderBtns";
 import { useRouter } from "next/navigation";
 import { LangType } from "@/types/globals";
 import { useLocale } from "next-intl";
+import { getAuthTokenClient } from "@/lib/auth/auth-client";
 
 interface Props {
   product: ProductType;
@@ -19,17 +20,19 @@ interface Props {
 
 const ProductCard = ({ product }: Props) => {
   const lang = useLocale() as LangType;
-  const { data } = useGetUserInfoQuery();
+  const isLogin = getAuthTokenClient();
+  const { data } = useGetUserInfoQuery(undefined, { skip: !isLogin });
   const userInfo = data?.data?.user;
   const router = useRouter();
 
+  const handleCardClick = () => {
+    if (!isLogin || userInfo?.type === "user") {
+      router.push(`/client/services/${product.id}`);
+    }
+  };
+
   return (
-    <div
-      onClick={() =>
-        userInfo?.type === "user" &&
-        router.push(`/client/home/services/${product.id}`)
-      }
-    >
+    <div onClick={handleCardClick}>
       <Card className="p-0 overflow-hidden gap-0 group duration-300 transition-all cursor-pointer hover:shadow-xl">
         <div className="relative w-full h-30 md:h-50 overflow-hidden">
           <Image
@@ -43,14 +46,15 @@ const ProductCard = ({ product }: Props) => {
 
           <div className="w-full px-2 absolute top-2 flex justify-between">
             <RateBadge number={product.rating} />
-            {userInfo?.type === "user" ? (
+
+            {userInfo?.type === "provider" ? (
+              <ActionProviderBtns productId={product.id} />
+            ) : (
               <FavoriteBtn
                 productId={product.id}
                 type="card"
-                variant={"secondary"}
+                variant="secondary"
               />
-            ) : (
-              <ActionProviderBtns productId={product.id} />
             )}
           </div>
         </div>
@@ -67,9 +71,9 @@ const ProductCard = ({ product }: Props) => {
             <div
               className={`absolute ${
                 lang === "ar" ? "left-0 rounded-tr-lg" : "right-0 rounded-tl-lg"
-              } bottom-4 bg-primary px-4 `}
+              } bottom-4 bg-primary px-4`}
             >
-              <div className=" text-white">{product.discount}</div>
+              <div className="text-white">{product.discount}</div>
             </div>
           )}
         </CardContent>

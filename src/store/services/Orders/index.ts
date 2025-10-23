@@ -45,6 +45,9 @@ export const OrdersApi = createApi({
         url: `/orders`,
         method: "POST",
         body,
+        headers: {
+          Accept: "application/json",
+        },
       }),
       invalidatesTags: ["Order", "Orders"],
     }),
@@ -57,6 +60,9 @@ export const OrdersApi = createApi({
         url: `/orders/${OrderId}`,
         method: "PATCH",
         body,
+        headers: {
+          Accept: "application/json",
+        },
       }),
       invalidatesTags: ["Order", "Orders"],
     }),
@@ -64,8 +70,9 @@ export const OrdersApi = createApi({
     DeleteOrder: builder.mutation<CheckDiscountResponseType, number>({
       query: (OrderId) => ({
         url: `/user/orders/${OrderId}`,
-        method: "POST",
+        method: "DELETE",
       }),
+      invalidatesTags: ["Order", "Orders"],
     }),
 
     CheckDiscount: builder.mutation<CheckDiscountResponseType, FormData>({

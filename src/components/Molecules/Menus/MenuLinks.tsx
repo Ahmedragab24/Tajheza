@@ -7,7 +7,9 @@ import {
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
 import { useLocale, useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 import React from "react";
+import clsx from "clsx";
 
 interface Props {
   type: "mobile" | "desktop";
@@ -16,19 +18,20 @@ interface Props {
 const MenuLinks = ({ type }: Props) => {
   const t = useTranslations("Navigation");
   const lang = useLocale();
+  const pathname = usePathname();
   const isRtl = lang === "ar";
 
   const navigationLinks = [
-    { href: "/", label: t("home"), active: true },
-    { href: "#", label: t("services") },
-    { href: "/client/home/occasions", label: t("occasions") },
+    { href: `/${lang}/client`, label: t("home") },
+    { href: `/${lang}/client/services`, label: t("services") },
+    { href: `/${lang}/client/profile`, label: t("profile") },
   ];
 
   const isDesktop = type === "desktop";
 
   return (
     <NavigationMenu
-      className={isDesktop ? "" : "max-w-none *:w-full"}
+      className={isDesktop ? "w-full" : "max-w-none"}
       dir={isRtl ? "rtl" : "ltr"}
     >
       <NavigationMenuList
@@ -36,21 +39,32 @@ const MenuLinks = ({ type }: Props) => {
           isDesktop ? "gap-2" : "flex-col items-start gap-0 md:gap-2 w-full"
         }
       >
-        {navigationLinks.map((link, index) => (
-          <NavigationMenuItem key={index} className={isDesktop ? "" : "w-full"}>
-            <NavigationMenuLink
-              href={link.href}
-              active={link.active}
-              className={`text-md ${
-                isDesktop
-                  ? "text-muted-foreground hover:text-primary py-1.5 font-medium rounded-full"
-                  : "py-1.5"
-              }`}
+        {navigationLinks.map((link, index) => {
+          const isActive = pathname === link.href;
+
+          return (
+            <NavigationMenuItem
+              key={index}
+              className={isDesktop ? "" : "w-full"}
             >
-              {link.label}
-            </NavigationMenuLink>
-          </NavigationMenuItem>
-        ))}
+              <NavigationMenuLink
+                href={link.href}
+                className={clsx(
+                  "text-md py-1.5 font-medium rounded-full transition-colors",
+                  isDesktop
+                    ? "text-muted-foreground hover:text-primary px-3"
+                    : "py-1.5 px-2 block w-full",
+                  isActive &&
+                    (isDesktop
+                      ? "text-primary font-bold bg-white"
+                      : "text-primary font-bold rounded-sm")
+                )}
+              >
+                {link.label}
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+          );
+        })}
       </NavigationMenuList>
     </NavigationMenu>
   );

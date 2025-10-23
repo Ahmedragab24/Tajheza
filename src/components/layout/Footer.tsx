@@ -1,23 +1,87 @@
 "use client";
 
-import { useGetUserInfoQuery } from "@/store/services/Auth/Profile";
 import React from "react";
-import {
-  FaInstagram,
-  FaFacebookF,
-  FaPinterestP,
-  FaYoutube,
-} from "react-icons/fa";
+import Logo from "../Atoms/images/logo";
+import SocialIconsGroup from "../Molecules/IconsGroup/SocialIconsGroup";
+import { useTranslations, useLocale } from "next-intl";
+import Link from "next/link";
+import { useGetUserInfoQuery } from "@/store/services/Auth/Profile";
 
-const Footer = () => {
+const ProviderFooter = () => {
+  const t = useTranslations("Footer");
+  const lang = useLocale();
   const { data } = useGetUserInfoQuery();
   const userInfo = data?.data;
+
+  const dashboardLinks = [
+    { id: 1, label: t("dashboard.home"), path: `/${lang}/client` },
+    {
+      id: 2,
+      label: t("dashboard.Services"),
+      path: `/${lang}/client/services`,
+    },
+    {
+      id: 3,
+      label: t("dashboard.Occasions"),
+      path: `/${lang}/client/occasions`,
+    },
+    {
+      id: 4,
+      label: t("dashboard.Companies"),
+      path: `/${lang}/client/companies`,
+    },
+  ];
+
+  const companyLinks = [
+    {
+      id: 1,
+      label: t("company.MyFavorites"),
+      path: `/${lang}/client/profile`,
+    },
+    {
+      id: 2,
+      label: t("company.Conversations"),
+      path: `/${lang}/client/profile`,
+    },
+    {
+      id: 3,
+      label: t("company.Notifications"),
+      path: `/${lang}/client/profile`,
+    },
+    {
+      id: 4,
+      label: t("company.changePassword"),
+      path: `/${lang}/client/profile`,
+    },
+  ];
+
+  const importantLinks = [
+    { id: 1, label: t("important.faq"), path: `/${lang}/client/faqs` },
+    {
+      id: 2,
+      label: t("important.privacy"),
+      path: `/${lang}/client/privacy-policy`,
+    },
+    {
+      id: 3,
+      label: t("important.terms"),
+      path: `/${lang}/client/terms-and-conditions`,
+    },
+    {
+      id: 4,
+      label: t("important.customerService"),
+      path: `/${lang}/client/profile`,
+    },
+  ];
 
   if (userInfo?.user.type === "provider") return;
 
   return (
-    <footer className="bg-primary font-['Cairo']" style={{ direction: "rtl" }}>
-      <div className="bg-secondary text-[#4a2c2a] py-6 px-6 lg:px-20 flex flex-col md:flex-row justify-between items-center gap-8">
+    <footer
+      className="bg-primary font-['Cairo']"
+      style={{ direction: lang === "ar" ? "rtl" : "ltr" }}
+    >
+      {/* <div className="bg-secondary text-[#4a2c2a] py-6 px-6 lg:px-20 flex flex-col md:flex-row justify-between items-center gap-8">
         <div className="text-center md:text-right">
           <h3 className="font-semibold text-base mb-4">
             تابعونا على وسائل التواصل الاجتماعي
@@ -72,150 +136,83 @@ const Footer = () => {
             />
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <div className="container mx-auto py-12 px-6 lg:px-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 text-center md:text-right">
+      <div className="Container mx-auto py-12 grid  grid-cols-2 lg:grid-cols-4 gap-10 text-center md:text-start">
+        {/* Logo + Info */}
         <div className="flex flex-col items-center md:items-start lg:col-span-1">
-          <img
-            src="https://i.ibb.co/9hGLq2Z/tajheza-logo.png"
-            alt="Tajheza Logo"
-            className="w-20 h-auto mb-4"
-          />
-          <h4 className="text-lg font-bold text-[#e3dcd5] mb-3">
-            متجر تجهيزة الإلكتروني
-          </h4>
-          <p className="text-[#c5b8ad] text-sm leading-relaxed">
-            دعم على مدار 24 ساعة، 7 أيام في الأسبوع
+          <h4 className="text-lg font-bold text-[#e3dcd5]">{t("title")}</h4>
+          <p className="text-[#c5b8ad] text-xs leading-relaxed">
+            {t("support")}
           </p>
-          <p className="text-[#c5b8ad] text-sm">966123456789 :الاتصال بالدعم</p>
+
+          <Logo isBg size="lg" />
+          <SocialIconsGroup />
         </div>
 
+        {/* WebsiteDirectory Links */}
         <div className="lg:col-span-1">
-          <h4 className="text-lg font-bold text-[#e3dcd5] mb-6">دليل الشراء</h4>
-          <ul className="space-y-4">
-            <li>
-              <a
-                href="#"
-                className="text-[#c5b8ad] hover:text-white transition-colors"
-              >
-                دليل تسجيل الطلب
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="text-[#c5b8ad] hover:text-white transition-colors"
-              >
-                طرق الدفع
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="text-[#c5b8ad] hover:text-white transition-colors"
-              >
-                كيفية شحن الطلبات
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="text-[#c5b8ad] hover:text-white transition-colors"
-              >
-                شروط إرجاع المنتج
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <div className="lg:col-span-1">
-          <h4 className="text-lg font-bold text-[#e3dcd5] mb-6">
-            خدمات العملاء
+          <h4 className="w-fit mx-auto md:mx-0 border-b text-lg font-bold text-[#e3dcd5] mb-6">
+            {t("sections.WebsiteDirectory")}
           </h4>
           <ul className="space-y-4">
-            <li>
-              <a
-                href="#"
-                className="text-[#c5b8ad] hover:text-white transition-colors"
-              >
-                الأسئلة الشائعة
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="text-[#c5b8ad] hover:text-white transition-colors"
-              >
-                سياسة الخصوصية
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="text-[#c5b8ad] hover:text-white transition-colors"
-              >
-                تقديم شكوى
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="text-[#c5b8ad] hover:text-white transition-colors"
-              >
-                ضمان المنتجات
-              </a>
-            </li>
+            {dashboardLinks.map((item) => (
+              <li key={item.id}>
+                <Link
+                  href={item.path}
+                  className="text-[#c5b8ad] hover:text-white transition-colors"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 
-        {/* العمود الرابع: تجهيزة */}
+        {/* Profile */}
         <div className="lg:col-span-1">
-          <h4 className="text-lg font-bold text-[#e3dcd5] mb-6">تجهيزة</h4>
+          <h4 className="w-fit mx-auto md:mx-0 border-b text-lg font-bold text-[#e3dcd5] mb-6">
+            {t("sections.Profile")}
+          </h4>
           <ul className="space-y-4">
-            <li>
-              <a
-                href="#"
-                className="text-[#c5b8ad] hover:text-white transition-colors"
-              >
-                عروض ومحصولات
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="text-[#c5b8ad] hover:text-white transition-colors"
-              >
-                فرصة التعاون
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="text-[#c5b8ad] hover:text-white transition-colors"
-              >
-                اتصل بنا
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="text-[#c5b8ad] hover:text-white transition-colors"
-              >
-                خريطة الموقع
-              </a>
-            </li>
+            {companyLinks.map((item) => (
+              <li key={item.id}>
+                <Link
+                  href={item.path}
+                  className="text-[#c5b8ad] hover:text-white transition-colors"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Important Links */}
+        <div className="lg:col-span-1">
+          <h4 className="w-fit mx-auto md:mx-0 border-b text-lg font-bold text-[#e3dcd5] mb-6">
+            {t("sections.support")}
+          </h4>
+          <ul className="space-y-4">
+            {importantLinks.map((item) => (
+              <li key={item.id}>
+                <Link
+                  href={item.path}
+                  className="text-[#c5b8ad] hover:text-white transition-colors"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
 
-      {/* الجزء السفلي - الحقوق */}
-      <div className="border-t border-[#5a3a38] py-6">
-        <p className="text-center text-sm text-[#c5b8ad]">
-          جميع حقوق هذا الموقع محفوظة لمتجر تجهيزة الإلكتروني
-        </p>
+      <div className="border-t border-secondary/20 py-6">
+        <p className="text-center text-sm text-[#c5b8ad]">{t("copyright")}</p>
       </div>
     </footer>
   );
 };
 
-export default Footer;
+export default ProviderFooter;

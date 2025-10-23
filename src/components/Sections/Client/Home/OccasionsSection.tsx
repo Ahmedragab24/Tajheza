@@ -53,7 +53,7 @@ const OccasionsSection = () => {
               key={item.id || index}
               fallback={<Skeleton className="h-20 rounded-full" />}
             >
-              <CarouselItem className="pl-4 basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/7">
+              <CarouselItem className="pl-4 basis-1/3 sm:basis-1/4 md:basis-1/5 lg:basis-1/7">
                 <OccasionCard occasion={item} />
               </CarouselItem>
             </Suspense>

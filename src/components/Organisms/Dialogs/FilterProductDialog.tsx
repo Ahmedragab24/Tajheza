@@ -58,11 +58,11 @@ const FilterProductDialog = ({ lang, TabValue, setTabValue }: Props) => {
               {lang === "ar" ? "بحث بالأسم" : "Search by name"}
             </h3>
             <TagInput
-              tags={TabValue.name || []}
+              tags={TabValue.name ? TabValue.name.split(" ") : []}
               setTags={(newTags) =>
                 setTabValue((prev) => ({
                   ...prev,
-                  name: newTags,
+                  name: newTags.length > 0 ? newTags.join(" ") : null,
                 }))
               }
               placeholder={lang === "ar" ? "ادخل الكلمة" : "Enter the word"}

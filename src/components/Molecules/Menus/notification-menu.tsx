@@ -42,11 +42,11 @@ const NotificationsPopover = () => {
             <Popover open={open} onOpenChange={changeOpen}>
               <PopoverTrigger asChild>
                 <Button
-                  variant="outline"
-                  className="relative group rounded-full size-9 p-0"
+                  variant="none"
+                  className="relative"
                   aria-label={lang === "ar" ? "الإشعارات" : "Notifications"}
                 >
-                  <BellRing className="transition-colors duration-300 group-hover:text-primary" />
+                  <BellRing className="transition-colors duration-300" />
                   {unreadCount > 0 && (
                     <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
                   )}
@@ -121,7 +121,7 @@ const NotificationsPopover = () => {
           ) : (
             <RegisterDialog>
               <Button
-                variant="outline"
+                variant="none"
                 className="group rounded-full size-9 p-0"
                 aria-label={lang === "ar" ? "الإشعارات" : "Notifications"}
               >

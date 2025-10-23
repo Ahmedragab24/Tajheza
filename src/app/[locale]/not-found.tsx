@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Car, ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight, Gift } from "lucide-react";
 import { useLocale } from "next-intl";
 
 export default function NotFound() {
   const language = useLocale();
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center p-4 mx-auto">
+    <div className="min-h-[90vh] flex flex-col justify-center items-center p-4 mx-auto">
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -20,7 +20,7 @@ export default function NotFound() {
           transition={{ repeat: Number.POSITIVE_INFINITY, duration: 5 }}
           className="inline-block"
         >
-          <Car className="text-primary mb-6 w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32" />
+          <Gift className="text-primary mb-6 w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32" />
         </motion.div>
         <h1 className="text-3xl sm:text-4xl font-bold text-gray-600 mb-4">
           {language === "en" ? "Oops! Wrong Turn" : "عفوا! منعطف خاطئ"}
@@ -42,7 +42,12 @@ export default function NotFound() {
           className="inline-flex items-center justify-center w-full px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-200"
         >
           {language === "en" ? "Back to Home" : "الرجوع للرئيسية"}
-          <ArrowLeft className="mr-2" size={20} />
+
+          {language === "ar" ? (
+            <ArrowLeft className="mx-2" size={20} />
+          ) : (
+            <ArrowRight className="mx-2" size={20} />
+          )}
         </Link>
       </motion.div>
       <motion.div

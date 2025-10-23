@@ -11,7 +11,8 @@
   "Navigation": {
     "home": "Home",
     "services": "Services",
-    "occasions": "Occasions"
+    "occasions": "Occasions",
+    "profile": "profile"
   },
   "DeleteAccount": {
     "title": "Delete Account",
@@ -54,5 +55,62 @@
     "profileUpdatedSuccessfully": "تم تحديث ملفك الشخصي بنجاح",
     "updateError": "خطأ",
     "somethingWentWrong": "حدث خطأ ما. يرجى المحاولة مرة أخرى."
+  },
+   "Footer": {
+    "title": "Tajheezah Online Store",
+    "support": "Support available 24 hours, 7 days a week",
+    "sections": {
+      "WebsiteDirectory": "Website Directory",
+      "Profile": "Company Account",
+      "support": "Customer Services"
+    },
+    "dashboard": {
+      "home": "Home",
+      "Services": "Services",
+      "Occasions": "Occasions",
+      "Companies": "Companies"
+    },
+    "company": {
+      "MyFavorites": "My Favorites",
+      "Conversations": "Conversations",
+      "Notifications": "Notifications",
+      "changePassword": "Change Password"
+    },
+    "important": {
+      "faq": "FAQ",
+      "privacy": "Privacy Policy",
+      "terms": "Terms & Conditions",
+      "customerService": "Customer Service"
+    },
+    "copyright": "All rights reserved to Tajheezah Online Store"
+  },
+   "ProviderFooter": {
+    "title": "Tajheza Online Store",
+    "support": "24/7 customer support",
+    "sections": {
+      "dashboard": "Dashboard",
+      "company": "Company Account",
+      "support": "Customer Services"
+    },
+    "dashboard": {
+      "home": "Home",
+      "myServices": "My Services",
+      "orders": "Orders",
+      "addService": "Add New Service"
+    },
+    "company": {
+      "profile": "Profile",
+      "conversations": "Conversations",
+      "notifications": "Notifications",
+      "changePassword": "Change Password"
+    },
+    "important": {
+      "faq": "FAQs",
+      "privacy": "Privacy Policy",
+      "terms": "Terms & Conditions",
+      "customerService": "Customer Service"
+    },
+    "copyright":
+      "© All rights reserved to Tajheza Online Store"
   }
 }

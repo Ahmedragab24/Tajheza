@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import { useLocale } from "next-intl";
 import { LangType } from "@/types/globals";
 import { ErrorType } from "@/types/Errors";
+import { getAuthTokenClient } from "@/lib/auth/auth-client";
 
 interface Props {
   productId: number;
@@ -28,6 +29,7 @@ interface Props {
 const FavoriteBtn = ({ productId, variant = "ghost", type }: Props) => {
   const lang = useLocale() as LangType;
   const isArabic = lang === "ar";
+  const isLogin = getAuthTokenClient();
 
   const { data: favoritesData, isLoading: favoritesLoading } =
     useGetFavoritesQuery(lang);
@@ -51,6 +53,14 @@ const FavoriteBtn = ({ productId, variant = "ghost", type }: Props) => {
   ) => {
     e.preventDefault();
     e.stopPropagation();
+
+    if (!isLogin) {
+      toast.success(
+        isArabic ? "يرجى تسجيل الدخول أولاً" : "Please log in first"
+      );
+
+      return;
+    }
 
     try {
       const res = await toggleFavorite(productId).unwrap();

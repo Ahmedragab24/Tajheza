@@ -11,18 +11,18 @@ export interface CreateOrderType {
   delivery_fee: number;
   discount: number;
   tax: number;
-  items: [
-    {
-      company_product_id: number;
-      quantity: number;
-      unit_price: number;
-    },
-    {
-      package_id: number;
-      quantity: number;
-      unit_price: number;
-    }
-  ];
+  items: Array<
+    | {
+        company_product_id?: number;
+        quantity?: number;
+        unit_price?: number;
+      }
+    | {
+        package_id?: number;
+        quantity?: number;
+        unit_price?: number;
+      }
+  >;
 }
 
 export interface CreateOrderResponseType {
@@ -99,4 +99,11 @@ export interface OrdersResponseType {
 export interface CheckDiscountResponseType {
   status: boolean;
   message: string;
+  data: {
+    id: number;
+    code: string;
+    percentage: number;
+    start_date: string;
+    end_date: string;
+  };
 }
