@@ -24,9 +24,10 @@ import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 interface Props {
   service: ProductDetailsType | undefined;
   lang: LangType;
+  children?: React.ReactNode;
 }
 
-const DeleteProductDialog = ({ service, lang }: Props) => {
+const DeleteProductDialog = ({ service, lang, children }: Props) => {
   const [open, setOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [Delete, { isLoading }] = useDeleteProductMutation();
@@ -53,13 +54,17 @@ const DeleteProductDialog = ({ service, lang }: Props) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <DropdownMenuItem
-          onSelect={(e) => e.preventDefault()}
-          className="flex items-center gap-1 cursor-pointer"
-        >
-          {lang === "ar" ? "حذف" : "Delete"}
-          <Trash2 className="w-3 h-3" />
-        </DropdownMenuItem>
+        {children ? (
+          children
+        ) : (
+          <DropdownMenuItem
+            onSelect={(e) => e.preventDefault()}
+            className="flex items-center gap-1 cursor-pointer"
+          >
+            {lang === "ar" ? "حذف" : "Delete"}
+            <Trash2 className="w-3 h-3" />
+          </DropdownMenuItem>
+        )}
       </DialogTrigger>
       <DialogContent
         dir={lang === "ar" ? "rtl" : "ltr"}

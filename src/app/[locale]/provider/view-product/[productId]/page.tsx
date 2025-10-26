@@ -1,7 +1,6 @@
 import NotFound from "@/app/[locale]/not-found";
 import ProductDetails from "@/components/Sections/Client/Product/ProductDetails";
 import ProductGallery from "@/components/Sections/Client/Product/ProductGallery";
-import RelatedProducts from "@/components/Sections/Client/Product/RelatedProducts";
 import { getProductDetails } from "@/lib/api/Products";
 import { LangType } from "@/types/globals";
 import { getLocale } from "next-intl/server";
@@ -35,13 +34,6 @@ const ViewProductPage = async ({
 
         <ProductDetails product={Product} lang={lang} />
       </div>
-
-      {Product.related_products && Product.related_products.length > 0 && (
-        <RelatedProducts
-          RelatedProducts={Product.related_products}
-          lang={lang}
-        />
-      )}
     </section>
   );
 };

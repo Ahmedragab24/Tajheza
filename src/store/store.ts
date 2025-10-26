@@ -34,11 +34,13 @@ import { ProviderCompanyApi } from "./services/Provider/Company";
 import serviceReducer from "./features/servicesSlice";
 import { PackagesApi } from "./services/Packages";
 import { ProviderDiscountCodesApi } from "./services/Provider/DiscountCodes";
+import { BannersApi } from "./services/Banners";
 
 const rootReducer = combineReducers({
   service: serviceReducer,
   [AuthApi.reducerPath]: AuthApi.reducer,
   [ProfileApi.reducerPath]: ProfileApi.reducer,
+  [BannersApi.reducerPath]: BannersApi.reducer,
   [ProductsApi.reducerPath]: ProductsApi.reducer,
   [PackagesApi.reducerPath]: PackagesApi.reducer,
   [CategoriesApi.reducerPath]: CategoriesApi.reducer,
@@ -85,6 +87,7 @@ export const store = configureStore({
       SearchApi.middleware,
       ServicesApi.middleware,
       CitiesApi.middleware,
+      BannersApi.middleware,
       FavoritesApi.middleware,
       OrdersApi.middleware,
       OccasionsApi.middleware,

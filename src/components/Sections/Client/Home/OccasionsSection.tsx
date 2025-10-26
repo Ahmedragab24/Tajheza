@@ -42,9 +42,17 @@ const OccasionsSection = () => {
             iconPath="/Icons/carbon_event.svg"
           />
 
-          <div className="flex gap-2">
-            <CarouselPrevious className="!w-8 !h-8 relative top-0" />
-            <CarouselNext className="!w-8 !h-8 relative top-0" />
+          <div className="flex gap-1">
+            <CarouselPrevious
+              className={`${
+                isRtl ? "left-0" : "right-0"
+              } !w-8 !h-8 relative top-0`}
+            />
+            <CarouselNext
+              className={`${
+                isRtl ? "left-0" : "right-0"
+              } !w-8 !h-8 relative top-0`}
+            />
           </div>
         </div>
         <CarouselContent className="-ml-4">

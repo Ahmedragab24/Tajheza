@@ -28,15 +28,15 @@ const OrdersPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background p-6">
-      <div className="max-w-4xl mx-auto">
-        <div className="flex flex-wrap gap-3 mb-8">
+    <div className="min-h-screen bg-background p-4 md:p-6">
+      <div className="md:max-w-4xl mx-auto">
+        <div className="flex flex-wrap gap-2 md:gap-3 mb-8">
           {statusOptions.map((option) => (
             <Button
               key={option.label}
               onClick={() => setStateOrder(option.value)}
               variant={stateOrder === option.value ? "default" : "outline"}
-              className={`rounded-full px-6 py-2 text-sm font-medium transition-colors border ${
+              className={`rounded-full md:px-6 py-2 text-sm font-medium transition-colors border ${
                 stateOrder === option.value
                   ? "bg-secondary text-amber-900 border-primary hover:bg-secondary/80"
                   : "border-gray-300 text-gray-700 hover:border-gray-400"

@@ -1,11 +1,17 @@
+"use client";
+
 import FavoriteBtn from "@/components/Atoms/buttons/FavoriteBtn";
 import { LangType } from "@/types/globals";
 import { ProductDetailsType } from "@/types/Products";
-import { CalendarDays, MapPin } from "lucide-react";
+import { CalendarDays, Edit2, MapPin, Trash2 } from "lucide-react";
 import React from "react";
 import CompanyInfo from "./CompanyInfo";
 import AuctionProduct from "./AuctionProduct";
 import ShareButton from "@/components/Atoms/buttons/ShareBtn";
+import { useGetUserInfoQuery } from "@/store/services/Auth/Profile";
+import UpdateProductDialog from "@/components/Organisms/Dialogs/UpdateProductDialog";
+import { Button } from "@/components/ui/button";
+import DeleteProductDialog from "@/components/Organisms/Dialogs/DeleteProductDialog";
 
 interface Props {
   product: ProductDetailsType;
@@ -14,6 +20,8 @@ interface Props {
 
 const ProductDetails = ({ lang, product }: Props) => {
   const isRtl = lang === "ar";
+  const { data } = useGetUserInfoQuery();
+  const UserInfo = data?.data?.user;
 
   return (
     <div className="space-y-4">
@@ -26,14 +34,37 @@ const ProductDetails = ({ lang, product }: Props) => {
           <h1 className="text-xl font-semibold">{product.title}</h1>
         </div>
 
-        <div className="flex items-center gap-2">
-          <FavoriteBtn
-            productId={product.id}
-            variant={"secondary"}
-            type="page"
-          />
-          <ShareButton productName={product.title} lang={lang} />
-        </div>
+        {UserInfo?.type === "user" ? (
+          <div className="flex items-center gap-2">
+            <FavoriteBtn
+              productId={product.id}
+              variant={"secondary"}
+              type="page"
+            />
+            <ShareButton productName={product.title} lang={lang} />
+          </div>
+        ) : (
+          <div className="flex items-center gap-2">
+            <UpdateProductDialog lang={lang} product={product}>
+              <Button
+                variant={"secondary"}
+                size="icon"
+                className="rounded-full z-10 relative !w-8 !h-8 md:!w-10 md:!h-10"
+              >
+                <Edit2 className="!w-4 !h-4 md:!w-6 md:!h-6 text-primary" />
+              </Button>
+            </UpdateProductDialog>
+            <DeleteProductDialog lang={lang} service={product}>
+              <Button
+                variant={"secondary"}
+                size="icon"
+                className="rounded-full z-10 relative !w-8 !h-8 md:!w-10 md:!h-10"
+              >
+                <Trash2 className="!w-4 !h-4 md:!w-6 md:!h-6 text-primary" />
+              </Button>
+            </DeleteProductDialog>
+          </div>
+        )}
       </div>
 
       {/* Location & Date */}
@@ -56,6 +87,7 @@ const ProductDetails = ({ lang, product }: Props) => {
         companyInfo={product.company}
         lang={lang}
         product={product}
+        userType={UserInfo?.type || "user"}
       />
 
       {/* Description */}
@@ -67,7 +99,11 @@ const ProductDetails = ({ lang, product }: Props) => {
       </div>
 
       {/* Price & Counter & Booking */}
-      <AuctionProduct product={product} lang={lang} />
+      <AuctionProduct
+        product={product}
+        lang={lang}
+        userType={UserInfo?.type || "user"}
+      />
     </div>
   );
 };

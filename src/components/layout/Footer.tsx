@@ -141,7 +141,9 @@ const ProviderFooter = () => {
       <div className="Container mx-auto py-12 grid  grid-cols-2 lg:grid-cols-4 gap-10 text-center md:text-start">
         {/* Logo + Info */}
         <div className="flex flex-col items-center md:items-start lg:col-span-1">
-          <h4 className="text-lg font-bold text-[#e3dcd5]">{t("title")}</h4>
+          <h4 className="text-sm md:text-lg font-bold text-[#e3dcd5]">
+            {t("title")}
+          </h4>
           <p className="text-[#c5b8ad] text-xs leading-relaxed">
             {t("support")}
           </p>
@@ -152,15 +154,15 @@ const ProviderFooter = () => {
 
         {/* WebsiteDirectory Links */}
         <div className="lg:col-span-1">
-          <h4 className="w-fit mx-auto md:mx-0 border-b text-lg font-bold text-[#e3dcd5] mb-6">
+          <h4 className="w-fit mx-auto md:mx-0 border-b text-sm md:text-lg font-bold text-[#e3dcd5] mb-6">
             {t("sections.WebsiteDirectory")}
           </h4>
-          <ul className="space-y-4">
+          <ul className="space-y-2 md:space-y-4">
             {dashboardLinks.map((item) => (
               <li key={item.id}>
                 <Link
                   href={item.path}
-                  className="text-[#c5b8ad] hover:text-white transition-colors"
+                  className="text-[#c5b8ad] hover:text-white transition-colors text-xs md:text-sm"
                 >
                   {item.label}
                 </Link>
@@ -171,15 +173,15 @@ const ProviderFooter = () => {
 
         {/* Profile */}
         <div className="lg:col-span-1">
-          <h4 className="w-fit mx-auto md:mx-0 border-b text-lg font-bold text-[#e3dcd5] mb-6">
+          <h4 className="w-fit mx-auto md:mx-0 border-b text-sm md:text-lg font-bold text-[#e3dcd5] mb-6">
             {t("sections.Profile")}
           </h4>
-          <ul className="space-y-4">
+          <ul className="space-y-2 md:space-y-4">
             {companyLinks.map((item) => (
               <li key={item.id}>
                 <Link
                   href={item.path}
-                  className="text-[#c5b8ad] hover:text-white transition-colors"
+                  className="text-[#c5b8ad] hover:text-white transition-colors text-xs md:text-sm"
                 >
                   {item.label}
                 </Link>
@@ -190,15 +192,15 @@ const ProviderFooter = () => {
 
         {/* Important Links */}
         <div className="lg:col-span-1">
-          <h4 className="w-fit mx-auto md:mx-0 border-b text-lg font-bold text-[#e3dcd5] mb-6">
+          <h4 className="w-fit mx-auto md:mx-0 border-b text-sm md:text-lg font-bold text-[#e3dcd5] mb-6">
             {t("sections.support")}
           </h4>
-          <ul className="space-y-4">
+          <ul className="space-y-2 md:space-y-4">
             {importantLinks.map((item) => (
               <li key={item.id}>
                 <Link
                   href={item.path}
-                  className="text-[#c5b8ad] hover:text-white transition-colors"
+                  className="text-[#c5b8ad] hover:text-white transition-colors text-xs md:text-sm"
                 >
                   {item.label}
                 </Link>
@@ -208,8 +210,21 @@ const ProviderFooter = () => {
         </div>
       </div>
 
-      <div className="border-t border-secondary/20 py-6">
-        <p className="text-center text-sm text-[#c5b8ad]">{t("copyright")}</p>
+      <div className="border-t border-secondary/20 py-6 flex flex-col justify-center items-center">
+        <p className="text-xs md:text-sm text-[#c5b8ad]">{t("copyright")}</p>
+        <p className="text-[#c5b8ad] hover:text-secondary text-xs md:text-sm">
+          {lang === "ar"
+            ? "تم التصميم والتطوير بواسطة"
+            : "Designed and developed by"}
+          <Link
+            href="https://computinggate.com/en"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium underline underline-offset-2 transition-all duration-200 mx-1"
+          >
+            {lang === "ar" ? "شركة بوابة الحوسبة" : "Computing Gate Company"}
+          </Link>
+        </p>
       </div>
     </footer>
   );

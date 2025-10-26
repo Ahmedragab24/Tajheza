@@ -7,13 +7,15 @@ import { LangType } from "@/types/globals";
 import { ProductDetailsType } from "@/types/Products";
 import AllocationSelect from "@/components/Molecules/Selects/AllocationSelect";
 import BookingBtn from "@/components/Organisms/Dialogs/BookingDialog";
+import { MembershipType } from "@/types/Auth/Auth";
 
 interface Props {
   lang: LangType;
   product: ProductDetailsType;
+  userType: MembershipType;
 }
 
-const AuctionProduct = ({ lang, product }: Props) => {
+const AuctionProduct = ({ lang, product, userType }: Props) => {
   const isRtl = lang === "ar";
   const [count, setCount] = useState<number>(1);
   const [SelectAllocation, setSelectAllocation] = useState<number>(0);
@@ -36,12 +38,14 @@ const AuctionProduct = ({ lang, product }: Props) => {
             </div>
           </div>
 
-          <div className="flex flex-col items-center gap-2">
-            <h4 className="text-lg font-semibold">
-              {isRtl ? "الكمية" : "Quantity"}
-            </h4>
-            <QuantityCounter count={count} setCount={setCount} />
-          </div>
+          {userType === "user" && (
+            <div className="flex flex-col items-center gap-2">
+              <h4 className="text-lg font-semibold">
+                {isRtl ? "الكمية" : "Quantity"}
+              </h4>
+              <QuantityCounter count={count} setCount={setCount} />
+            </div>
+          )}
         </div>
 
         {product?.options && product?.options.length > 0 && (
@@ -58,7 +62,10 @@ const AuctionProduct = ({ lang, product }: Props) => {
           </div>
         )}
       </div>
-      <BookingBtn isRtl={isRtl} product={product} count={count} />
+
+      {userType === "user" && (
+        <BookingBtn isRtl={isRtl} product={product} count={count} />
+      )}
     </div>
   );
 };

@@ -17,7 +17,7 @@ const MembershipSection = ({ lang }: Props) => {
   if (isError) return <ErrorGetData />;
 
   return (
-    <div className="p-4 space-y-4">
+    <div className="space-y-4">
       {!isLoading && Packages.length === 0 && (
         <NotFoundData
           title={

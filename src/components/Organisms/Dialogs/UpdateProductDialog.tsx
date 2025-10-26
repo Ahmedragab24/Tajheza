@@ -11,21 +11,26 @@ import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 interface Props {
   product: ProductDetailsType | undefined;
   lang: LangType;
+  children?: React.ReactNode;
 }
 
-const UpdateProductDialog = ({ product, lang }: Props) => {
+const UpdateProductDialog = ({ product, lang, children }: Props) => {
   const [open, setOpen] = useState(false);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <DropdownMenuItem
-          onSelect={(e) => e.preventDefault()}
-          className="flex items-center gap-1 cursor-pointer"
-        >
-          {lang === "ar" ? "تعديل" : "Edit"}
-          <Edit2 className="w-3 h-3" />
-        </DropdownMenuItem>
+        {children ? (
+          children
+        ) : (
+          <DropdownMenuItem
+            onSelect={(e) => e.preventDefault()}
+            className="flex items-center gap-1 cursor-pointer"
+          >
+            {lang === "ar" ? "تعديل" : "Edit"}
+            <Edit2 className="w-3 h-3" />
+          </DropdownMenuItem>
+        )}
       </DialogTrigger>
 
       <DialogContent

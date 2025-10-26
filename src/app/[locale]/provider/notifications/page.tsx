@@ -18,6 +18,12 @@ const NotificationsPage = () => {
 
   return (
     <div className="p-4 space-y-4">
+      <p>
+        {lang === "ar" ? "عدد الإشعارات" : "Number of notifications"} (
+        {Notifications.length}) - {lang === "ar" ? "الغير مقروءة " : "Unread"} (
+        {data?.countUnreadNotifications})
+      </p>
+
       {!isLoading && Notifications.length === 0 && (
         <NotFoundData
           title={lang === "ar" ? "لا يوجد أشعارات" : "No notifications"}
@@ -29,12 +35,6 @@ const NotificationsPage = () => {
           image="/Images/bell (1) 1.png"
         />
       )}
-
-      <p>
-        {lang === "ar" ? "عدد الإشعارات" : "Number of notifications"} (
-        {Notifications.length}) - {lang === "ar" ? "الغير مقروءة " : "Unread"} (
-        {data?.countUnreadNotifications})
-      </p>
 
       <div className="grid md:grid-cols-2 gap-4">
         {!isLoading &&

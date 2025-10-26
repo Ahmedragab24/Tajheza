@@ -81,7 +81,7 @@ const ProfilePage = () => {
 
         {/* Main Content Area - 3/4 width on desktop */}
         <div className="lg:col-span-9">
-          <Card className="bg-white shadow-2xl rounded-3xl px-8">
+          <Card className="bg-white shadow-2xl rounded-3xl p-4 md:p-8">
             <Tabs
               value={activeTab}
               onValueChange={handleTabChange}

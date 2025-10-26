@@ -11,7 +11,7 @@ export default function Logo({ isBg, size = "md" }: Props) {
       className={`relative ${
         size === "lg"
           ? "!w-25 md:!w-35 !h-20 md:!h-30"
-          : "!w-20 md:!w-30 !h-14 md:!h-25"
+          : "!w-25 md:!w-30 !h-20 md:!h-25"
       } `}
     >
       <Image

@@ -56,7 +56,7 @@ const NotificationsPopover = () => {
               <PopoverContent
                 align="end"
                 dir={lang === "ar" ? "rtl" : "ltr"}
-                className="w-[320px] h-[420px] p-4 shadow-xl border border-gray-200 bg-background rounded-xl flex flex-col"
+                className="w-[320px] !max-h-[420px] p-4 shadow-xl border border-gray-200 bg-background rounded-xl flex flex-col"
               >
                 {/* Header */}
                 <div className="flex items-center justify-between mb-2">

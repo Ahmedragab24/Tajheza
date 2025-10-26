@@ -38,7 +38,7 @@ const OccasionsDialog = ({ children }: Props) => {
         <div className="flex items-center justify-center gap-4 mt-4">
           {/* App Store */}
           <Link
-            href="https://apps.apple.com/eg/app/%D8%B9%D9%82%D8%B1%D9%87%D8%A7-aqrha/id6743926325?l=ar"
+            href="https://apps.apple.com/eg/app/tajheza-%D8%AA%D8%AC%D9%87%D9%8A%D8%B2%D9%87/id6748354068"
             target="_blank"
             className="flex items-center justify-between w-[150px] md:w-[180px] gap-3 py-2 px-4 bg-black dark:bg-gray-800 rounded-xl hover:scale-105 hover:opacity-90 transition-transform duration-300"
           >
@@ -60,7 +60,7 @@ const OccasionsDialog = ({ children }: Props) => {
 
           {/* Google Play */}
           <Link
-            href="https://play.google.com/store/apps/details?id=com.aqerha.computing"
+            href="https://apps.apple.com/eg/app/tajheza-%D8%AA%D8%AC%D9%87%D9%8A%D8%B2%D9%87/id6748354068"
             target="_blank"
             className="flex items-center justify-between w-[150px] md:w-[180px] gap-3 py-2 px-4 bg-black dark:bg-gray-800 rounded-xl hover:scale-105 hover:opacity-90 transition-transform duration-300"
           >

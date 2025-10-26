@@ -58,7 +58,7 @@ const BookingDialog = ({ isRtl, product, count, Package }: Props) => {
         )}
       </DialogTrigger>
 
-      <DialogContent className="max-h-[90vh] overflow-y-auto">
+      <DialogContent className="!max-w-full md:!max-w-lg max-h-[90vh] overflow-y-auto p-2 md:p-4">
         <DialogTitle />
         <div className="space-y-6">
           <ProductSelectBookingCard

@@ -11,14 +11,16 @@ import Link from "next/link";
 import { useGetCompanyByIdQuery } from "@/store/services/Companies";
 import QuickChatDialog from "@/components/Organisms/Dialogs/QuickChatDialog";
 import { useGetUserInfoQuery } from "@/store/services/Auth/Profile";
+import { MembershipType } from "@/types/Auth/Auth";
 
 interface Props {
   lang: LangType;
   companyInfo: CompanyInfoType;
   product: ProductDetailsType;
+  userType: MembershipType;
 }
 
-const CompanyInfo = ({ lang, companyInfo, product }: Props) => {
+const CompanyInfo = ({ lang, companyInfo, product, userType }: Props) => {
   const isRtl = lang === "ar";
   const { data } = useGetCompanyByIdQuery(companyInfo.company_id);
   const Company = data?.data;
@@ -43,7 +45,13 @@ const CompanyInfo = ({ lang, companyInfo, product }: Props) => {
   return (
     <div className="border-b pb-4">
       <div className="flex gap-2 max-w-lg">
-        <Link href={`/client/companies/${companyInfo.company_id}`}>
+        <Link
+          href={
+            userType === "user"
+              ? `/client/companies/${companyInfo.company_id}`
+              : `/provider/profile`
+          }
+        >
           <Avatar className="w-12 h-12">
             <AvatarImage src={companyInfo?.logo || "/fallback-logo.png"} />
             <AvatarFallback>
@@ -65,20 +73,22 @@ const CompanyInfo = ({ lang, companyInfo, product }: Props) => {
             </div>
 
             <div className="mx-8 flex items-center gap-2">
-              <QuickChatDialog
-                phone={companyInfo.phone}
-                productId={product.id}
-                userId={UserInfo?.id || 0}
-                isText
-              >
-                <Image
-                  src="/Icons/Chat.svg"
-                  alt="Chat"
-                  width={40}
-                  height={40}
-                  className="cursor-pointer hover:opacity-80 transition"
-                />
-              </QuickChatDialog>
+              {userType === "user" && (
+                <QuickChatDialog
+                  phone={companyInfo.phone}
+                  productId={product.id}
+                  userId={UserInfo?.id || 0}
+                  isText
+                >
+                  <Image
+                    src="/Icons/Chat.svg"
+                    alt="Chat"
+                    width={40}
+                    height={40}
+                    className="cursor-pointer hover:opacity-80 transition"
+                  />
+                </QuickChatDialog>
+              )}
 
               <Link href={`tel:${companyInfo?.phone}`}>
                 <Image

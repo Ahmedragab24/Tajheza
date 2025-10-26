@@ -36,7 +36,7 @@ const ActionProviderBtns = ({ productId }: Props) => {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="!min-w-28">
-        <Link href={`/view-product/${productId}`}>
+        <Link href={`/provider/view-product/${productId}`}>
           <DropdownMenuItem
             onSelect={(e) => e.preventDefault()}
             className="flex items-center gap-1 cursor-pointer"

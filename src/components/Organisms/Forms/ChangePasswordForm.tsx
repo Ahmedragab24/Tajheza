@@ -51,7 +51,7 @@ const ChangePasswordForm = ({ lang }: Props) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 max-w-2xl mx-auto bg-muted p-6 rounded-2xl shadow-md"
+        className="space-y-4 max-w-2xl mx-auto bg-muted p-4 md:p-6 rounded-2xl shadow-md"
       >
         <FormField
           control={form.control}

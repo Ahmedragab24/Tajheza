@@ -25,9 +25,9 @@ const PackagesDialog = ({ Packages, lang }: Props) => {
 
       <DialogContent
         dir={lang === "ar" ? "rtl" : "ltr"}
-        className="!max-w-2xl max-h-[90vh] overflow-y-auto"
+        className="!max-w-2xl max-h-[90vh] overflow-y-auto !p-2"
       >
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid md:grid-cols-2 gap-4">
           {Packages.map((item) => (
             <PackagesCard key={item.id} Package={item} />
           ))}

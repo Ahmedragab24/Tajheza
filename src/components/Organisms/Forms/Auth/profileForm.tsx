@@ -85,7 +85,7 @@ const ProfileForm = ({ userData }: Props) => {
   return (
     <div
       dir={locale === "ar" ? "rtl" : "ltr"}
-      className="space-y-4 max-w-4xl mx-auto bg-muted p-6 rounded-2xl shadow-md"
+      className="space-y-4 max-w-4xl mx-auto bg-muted p-4 md:p-6 rounded-2xl shadow-md"
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">

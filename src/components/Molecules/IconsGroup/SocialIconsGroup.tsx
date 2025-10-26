@@ -52,7 +52,7 @@ const SocialIconsGroup = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={item.platform}
-              className="text-xl text-secondary hover:text-[#8c5b5a] transition-colors"
+              className="text-xs md:text-lg text-secondary hover:text-[#8c5b5a] transition-colors"
             >
               {Icon}
             </a>

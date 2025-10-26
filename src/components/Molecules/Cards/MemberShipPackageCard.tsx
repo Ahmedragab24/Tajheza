@@ -30,7 +30,7 @@ const MemberShipPackageCard = ({ lang, package: pkg }: Props) => {
         className="object-cover absolute inset-0 z-0"
       />
 
-      <div className="absolute inset-0 bg-black/30 z-10" />
+      <div className="absolute inset-0 bg-black/40 z-10" />
 
       <CardContent className="relative z-20 p-6 flex flex-col items-center gap-4 text-center">
         {pkg.the_best && (
@@ -61,7 +61,7 @@ const MemberShipPackageCard = ({ lang, package: pkg }: Props) => {
           {pkg.features.map((feature) => (
             <li
               key={feature.id}
-              className="flex items-center gap-2 text-sm text-white drop-shadow-sm"
+              className="flex items-center gap-2 text-sm text-white drop-shadow-lg"
             >
               <CheckCircle2 className="text-green-500 w-4 h-4" />
               <span>{feature.name}</span>
@@ -69,7 +69,7 @@ const MemberShipPackageCard = ({ lang, package: pkg }: Props) => {
           ))}
         </ul>
 
-        <Button variant={"default"} className={`mt-6 w-full rounded-full `}>
+        <Button variant={"outline"} className={`mt-6 w-full rounded-full `}>
           {lang === "ar" ? "ابدأ الآن" : "Start Now"}
         </Button>
       </CardContent>

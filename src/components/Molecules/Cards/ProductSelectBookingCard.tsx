@@ -56,36 +56,31 @@ const ProductSelectBookingCard = ({
   ]);
 
   return (
-    <Card className="p-6 space-y-4 border-2">
-      <div className="flex gap-8 items-center" dir={isRtl ? "rtl" : "ltr"}>
-        {product?.main_image && (
-          <Image
-            src={product.main_image}
-            alt={product.title}
-            width={200}
-            height={200}
-            className="w-44 h-32 object-cover rounded-lg"
-          />
+    <Card className="p-4 md:p-6 space-y-4 border-2">
+      <div
+        className="flex flex-col md:flex-row gap-4 md:gap-8 !items-center md:items-start"
+        dir={isRtl ? "rtl" : "ltr"}
+      >
+        {(product?.main_image || Package?.image) && (
+          <div className="relative w-full sm:w-44 h-40 sm:h-32">
+            <Image
+              src={product?.main_image || Package?.image || ""}
+              alt={product?.title || Package?.name || "product"}
+              fill
+              className="object-cover rounded-lg"
+            />
+          </div>
         )}
 
-        {Package?.image && (
-          <Image
-            src={Package?.image}
-            alt={Package?.name}
-            width={200}
-            height={200}
-            className="w-44 h-32 object-cover rounded-lg"
-          />
-        )}
-        <div className="flex flex-col gap-4">
-          <h3 className="font-bold text-lg">
+        <div className="flex flex-col justify-center gap-2 text-center md:text-left">
+          <h3 className="font-bold text-lg sm:text-xl">
             {Package ? Package.name : product?.title}
           </h3>
-          <div className="flex items-center gap-2">
-            <h3 className="font-medium text-lg text-gray-500">
-              {isRtl ? "الكمية" : "Quantity"} :
-            </h3>
-            <h3 className="font-bold text-lg">{count}</h3>
+          <div className="flex items-center justify-center gap-1 sm:gap-2 text-gray-500">
+            <span className="font-medium text-base">
+              {isRtl ? "الكمية:" : "Quantity:"}
+            </span>
+            <span className="font-bold text-lg text-black">{count}</span>
           </div>
         </div>
       </div>
